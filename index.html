@@ -8,152 +8,128 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+position:relative;
 }
 
-body {
-    margin: 0;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
+/* background */
+.bg{
+position:fixed;
+width:100%;
+height:100%;
+background:url('background.jpg') no-repeat center center/cover;
+z-index:-2;
 }
 
-/* BACKGROUND */
-.bg {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: url('background.jpg') no-repeat center center/cover;
-    z-index: -2;
+/* overlay */
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+z-index:-1;
 }
 
-/* MOTIF OVERLAY */
-.overlay {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
-    background-size: 30px 30px;
-    z-index: -1;
+/* card */
+.card{
+width:90%;
+max-width:400px;
+padding:30px 20px;
+border-radius:25px;
+text-align:center;
+color:white;
+
+background:rgba(0,0,0,0.35);
+backdrop-filter:blur(20px);
+
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+border:1px solid rgba(255,255,255,0.2);
+
+position:relative;
+z-index:2;
 }
 
-/* CARD TRANSPARAN */
-.card {
-    width: 90%;
-    max-width: 400px;
-    padding: 35px 25px;
-    border-radius: 25px;
-    text-align: center;
-    color: white;
-
-    background: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(20px);
-
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.2);
-
-    position: relative;
-    z-index: 2;
+/* toga */
+.toga{
+width:70px;
+margin-bottom:10px;
+animation:float 3s infinite;
+}
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
 }
 
-/* TOGA ICON */
-.toga {
-    width: 70px;
-    margin-bottom: 10px;
-    animation: float 3s ease-in-out infinite;
+#halaman2{display:none;}
+
+/* input */
+input{
+width:100%;
+padding:14px;
+border-radius:30px;
+border:2px solid rgba(255,255,255,0.5);
+background:transparent;
+color:white;
+text-align:center;
+margin-top:15px;
 }
 
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+/* tombol */
+button,.btn{
+display:block;
+width:100%;
+margin-top:15px;
+padding:14px;
+border-radius:30px;
+border:none;
+font-weight:600;
+cursor:pointer;
+text-decoration:none;
+transition:0.3s;
 }
 
-/* HALAMAN */
-#halaman2 {
-    display: none;
+button{background:white;color:black;}
+button:hover{transform:scale(1.1);}
+
+.maps{background:white;color:black;}
+.wa{background:#25D366;color:white;}
+
+/* animasi */
+.fadeOut{animation:fadeOut 0.5s forwards;}
+.fadeIn{animation:fadeIn 1s forwards;}
+
+@keyframes fadeOut{to{opacity:0;transform:scale(0.8);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(50px);}to{opacity:1;}}
+
+/* countdown */
+.countdown{
+margin-top:15px;
+font-size:16px;
+font-weight:600;
 }
 
-/* INPUT */
-input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 30px;
-    border: 2px solid rgba(255,255,255,0.5);
-    background: transparent;
-    color: white;
-    text-align: center;
-    margin-top: 15px;
+/* confetti */
+.confetti{
+position:fixed;
+width:8px;
+height:8px;
+top:-10px;
+animation:fall linear infinite;
+}
+@keyframes fall{
+to{transform:translateY(100vh);}
 }
 
-input::placeholder {
-    color: rgba(255,255,255,0.7);
-}
-
-/* BUTTON */
-button, .btn {
-    display: block;
-    width: 100%;
-    margin-top: 15px;
-    padding: 14px;
-    border-radius: 30px;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-button {
-    background: white;
-    color: black;
-}
-
-button:hover {
-    transform: scale(1.05);
-}
-
-.maps {
-    background: white;
-    color: black;
-}
-
-.wa {
-    background: #25D366;
-    color: white;
-}
-
-/* ANIMASI */
-.fadeOut {
-    animation: fadeOut 0.5s forwards;
-}
-
-.fadeIn {
-    animation: fadeIn 0.7s forwards;
-}
-
-@keyframes fadeOut {
-    to { opacity: 0; transform: scale(0.9); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px) scale(0.9); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* TEXT */
-h1 { margin-bottom: 5px; }
-h3 { font-weight: 300; margin-bottom: 15px; }
-.info { margin-top: 15px; font-size: 15px; line-height: 1.6; }
-
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+.container{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100%;
 }
 </style>
 </head>
@@ -165,76 +141,109 @@ h3 { font-weight: 300; margin-bottom: 15px; }
 
 <div class="container">
 
-<!-- HALAMAN INPUT -->
+<!-- HALAMAN 1 -->
 <div class="card" id="halaman1">
-    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
 
-    <h1>Undangan Wisuda</h1>
-    <h3>Aan, A.Md.Kom.</h3>
+<h1>Undangan Wisuda</h1>
+<h3>Aan, A.Md.Kom.</h3>
 
-    <p>Masukan nama kamu untuk membuka undangan spesial ini</p>
+<p>Masukan nama kamu untuk membuka undangan spesial ini</p>
 
-    <input type="text" id="namaInput" placeholder="Nama lengkap kamu...">
+<input type="text" id="namaInput" placeholder="Nama lengkap kamu...">
 
-    <button onclick="bukaUndangan()">Buka Undangan</button>
+<button onclick="bukaUndangan()">Buka Undangan</button>
 </div>
 
-<!-- HALAMAN ISI -->
+<!-- HALAMAN 2 -->
 <div class="card" id="halaman2">
-    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
 
-    <h1>Hai <span id="namaTampil"></span> 👋</h1>
+<h1>Hai <span id="namaTampil"></span> 👋</h1>
 
-    <p class="info">
-        Dengan penuh rasa syukur,<br>
-        saya mengundang kamu untuk hadir di acara wisuda saya
-    </p>
+<p>
+Dengan penuh rasa syukur,<br>
+saya mengundang kamu untuk hadir di acara wisuda saya
+</p>
 
-    <div class="info">
-        🎓 <b>Wisuda Aan, A.Md.Kom.</b><br><br>
-        📅 5 Mei 2026<br>
-        ⏰ 09.00 WIB - Selesai<br><br>
-        📍 Hotel Horison Ultima Ratu Serang
-    </div>
+<div style="margin-top:15px;">
+🎓 <b>Wisuda Aan, A.Md.Kom.</b><br><br>
+📅 5 Mei 2026<br>
+⏰ 09.00 WIB - Selesai<br><br>
+📍 Hotel Horison Ultima Ratu Serang
+</div>
 
-    <a href="https://bit.ly/48hwQVU" target="_blank" class="btn maps">
-        📍 Lihat Lokasi
-    </a>
+<div class="countdown" id="countdown"></div>
 
-    <a id="waLink" class="btn wa">
-        💬 Konfirmasi Kehadiran
-    </a>
+<a href="https://bit.ly/48hwQVU" target="_blank" class="btn maps">
+📍 Lihat Lokasi
+</a>
+
+<a id="waLink" class="btn wa">
+💬 Konfirmasi Kehadiran
+</a>
 </div>
 
 </div>
+
+<!-- MUSIK -->
+<audio id="musik" loop>
+<source src="musik.mp3" type="audio/mp3">
+</audio>
 
 <script>
-function bukaUndangan() {
-    let nama = document.getElementById("namaInput").value;
+function bukaUndangan(){
+let nama=document.getElementById("namaInput").value;
+if(nama===""){alert("Isi nama dulu ya!");return;}
 
-    if (nama === "") {
-        alert("Isi nama dulu ya!");
-        return;
-    }
+document.getElementById("namaTampil").innerText=nama;
 
-    document.getElementById("namaTampil").innerText = nama;
+/* WA */
+let pesan="Halo Aan, saya "+nama+" bisa hadir di wisudamu";
+let waUrl="https://api.whatsapp.com/send?phone=6283878272726&text="+encodeURIComponent(pesan);
+document.getElementById("waLink").href=waUrl;
 
-    let pesan = "Halo Aan, saya " + nama + " bisa hadir di wisudamu";
-    let waUrl = "https://api.whatsapp.com/send?phone=6283878272726&text=" + encodeURIComponent(pesan);
+/* animasi */
+let h1=document.getElementById("halaman1");
+let h2=document.getElementById("halaman2");
 
-    document.getElementById("waLink").href = waUrl;
+h1.classList.add("fadeOut");
 
-    let h1 = document.getElementById("halaman1");
-    let h2 = document.getElementById("halaman2");
+setTimeout(()=>{
+h1.style.display="none";
+h2.style.display="block";
+h2.classList.add("fadeIn");
+},500);
 
-    h1.classList.add("fadeOut");
+/* musik */
+document.getElementById("musik").play();
 
-    setTimeout(() => {
-        h1.style.display = "none";
-        h2.style.display = "block";
-        h2.classList.add("fadeIn");
-    }, 500);
+/* confetti */
+for(let i=0;i<40;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"%";
+c.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)";
+c.style.animationDuration=(2+Math.random()*3)+"s";
+document.body.appendChild(c);
 }
+}
+
+/* COUNTDOWN */
+let target=new Date("May 5, 2026 09:00:00").getTime();
+
+setInterval(()=>{
+let now=new Date().getTime();
+let selisih=target-now;
+
+let hari=Math.floor(selisih/(1000*60*60*24));
+let jam=Math.floor((selisih%(1000*60*60*24))/(1000*60*60));
+let menit=Math.floor((selisih%(1000*60*60))/(1000*60));
+let detik=Math.floor((selisih%(1000*60))/1000);
+
+document.getElementById("countdown").innerHTML=
+"⏳ "+hari+" Hari "+jam+" Jam "+menit+" Menit "+detik+" Detik";
+},1000);
 </script>
 
 </body>
