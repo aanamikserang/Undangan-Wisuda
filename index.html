@@ -11,66 +11,82 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
 body{
-margin:0;
-min-height:100vh;
+background:#000;
+color:white;
 overflow-x:hidden;
-overflow-y:auto;
-padding:20px;
-background:#111;
 }
 
-/* background */
+/* ===== PARALLAX BACKGROUND ===== */
 .bg{
 position:fixed;
+top:0;
+left:0;
 width:100%;
-height:100%;
-background:
-linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-url('background.jpg') no-repeat center center/cover;
+height:120%;
+background-image:url('background.jpg');
+background-size:cover;
+background-position:40% center;
 z-index:-2;
+transition:transform 0.1s linear;
 }
 
 .overlay{
 position:fixed;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.4);
+background:rgba(0,0,0,0.55);
+backdrop-filter:blur(3px);
 z-index:-1;
 }
 
-/* container */
-.container{
+/* ===== LAYOUT ===== */
+.wrapper{
+display:flex;
+min-height:100vh;
+}
+
+/* kiri (desktop only) */
+.left{
+flex:1;
+display:none;
+}
+
+/* kanan (card) */
+.right{
+flex:1;
 display:flex;
 justify-content:center;
 align-items:center;
-min-height:100vh;
-padding:20px 0;
+padding:30px 15px;
 }
 
-/* biar laptop tidak ketengah banget */
-@media (min-width:768px){
-.container{
+/* aktif desktop */
+@media (min-width:900px){
+.left{
+display:block;
+}
+.right{
 align-items:flex-start;
-padding-top:60px;
+padding-top:80px;
 }
 }
 
-/* card */
+/* ===== CARD ===== */
 .card{
 width:100%;
-max-width:400px;
+max-width:420px;
 padding:30px 20px;
 border-radius:25px;
 text-align:center;
-color:white;
-background:rgba(0,0,0,0.35);
+
+background:rgba(0,0,0,0.4);
 backdrop-filter:blur(20px);
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
 border:1px solid rgba(255,255,255,0.2);
+
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
 animation:fadeInUp 1s ease;
 position:relative;
 z-index:2;
-margin:20px 0;
 }
 
 @keyframes fadeInUp{
@@ -89,8 +105,6 @@ animation:float 3s infinite;
 50%{transform:translateY(-10px);}
 }
 
-#halaman2{display:none;}
-
 input{
 width:100%;
 padding:14px;
@@ -102,7 +116,6 @@ text-align:center;
 margin-top:15px;
 }
 
-/* tombol */
 button,.btn{
 display:block;
 width:100%;
@@ -122,7 +135,6 @@ button:hover{transform:scale(1.05);}
 .maps{background:white;color:black;}
 .wa{background:#25D366;color:white;}
 
-/* animasi */
 .fadeOut{animation:fadeOut 0.5s forwards;}
 .fadeIn{animation:fadeIn 1s forwards;}
 
@@ -132,24 +144,22 @@ button:hover{transform:scale(1.05);}
 /* countdown */
 .flip-container{
 display:flex;
-justify-content:space-between;
-margin-top:15px;
 gap:8px;
+margin-top:15px;
 }
 
 .flip-box{flex:1;text-align:center;}
 
-.label{font-size:11px;opacity:0.8;margin-bottom:4px;}
+.label{font-size:11px;opacity:0.8;}
 
 .flip{
 background:rgba(255,255,255,0.15);
 border-radius:10px;
 padding:10px 0;
-font-size:16px;
 font-weight:bold;
 }
 
-/* confetti DI BELAKANG */
+/* confetti belakang */
 .confetti{
 position:fixed;
 width:8px;
@@ -157,51 +167,55 @@ height:8px;
 top:-10px;
 animation:fall linear infinite;
 z-index:0;
-pointer-events:none;
 opacity:0.7;
 }
 
 @keyframes fall{to{transform:translateY(100vh);}}
 
-/* responsive */
-@media (max-width:480px){
-h1{font-size:20px;}
-h3{font-size:16px;}
+/* mobile */
+@media(max-width:600px){
 .card{padding:25px 15px;}
+h1{font-size:20px;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
+<div class="bg" id="bg"></div>
 <div class="overlay"></div>
 
-<div class="container">
+<div class="wrapper">
+
+<div class="left"></div>
+
+<div class="right">
 
 <!-- HALAMAN 1 -->
 <div class="card" id="halaman1">
 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
 <h1>Undangan Wisuda</h1>
 <h3>Aan, A.Md.Kom.</h3>
-<p>Masukan nama kamu untuk membuka undangan spesial ini</p>
-<input type="text" id="namaInput" placeholder="Nama lengkap kamu...">
+<p>Masukan nama kamu untuk membuka undangan</p>
+<input type="text" id="namaInput" placeholder="Nama kamu...">
 <button onclick="bukaUndangan()">Buka Undangan</button>
 </div>
 
 <!-- HALAMAN 2 -->
-<div class="card" id="halaman2">
+<div class="card" id="halaman2" style="display:none;">
 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
 
 <h1>Hai <span id="namaTampil"></span> 👋</h1>
 
-<p>Dengan penuh rasa syukur,<br>
-saya mengundang kamu untuk hadir di acara wisuda saya</p>
+<p>
+Dengan penuh rasa syukur,<br>
+saya mengundang kamu hadir di wisuda saya
+</p>
 
 <div style="margin-top:10px;">
 🎓 <b>Wisuda Aan, A.Md.Kom.</b><br><br>
 📅 Selasa, 5 Mei 2026<br>
-⏰ 09.00 WIB - Selesai<br><br>
+⏰ 09.00 WIB<br><br>
 📍 Hotel Horison Ultima Ratu Serang
 </div>
 
@@ -219,46 +233,41 @@ saya mengundang kamu untuk hadir di acara wisuda saya</p>
 </div>
 
 </div>
+</div>
 
 <audio id="musik" loop>
 <source src="musik.mp3" type="audio/mp3">
 </audio>
 
 <script>
+/* PARALLAX */
+window.addEventListener("scroll",()=>{
+let scroll=window.scrollY;
+document.getElementById("bg").style.transform="translateY("+scroll*0.3+"px)";
+});
+
+/* kalender */
 function buatLinkKalender(nama){
-let judul="Wisuda Aan, A.Md.Kom.";
-let deskripsi="Halo "+nama+", jangan lupa hadir di wisuda Aan 🎓";
-let lokasi="Hotel Horison Ultima Ratu Serang";
-
-let mulai="20260505T020000Z";
-let selesai="20260505T050000Z";
-
 return "https://calendar.google.com/calendar/render?action=TEMPLATE"
-+"&text="+encodeURIComponent(judul)
-+"&dates="+mulai+"/"+selesai
-+"&details="+encodeURIComponent(deskripsi)
-+"&location="+encodeURIComponent(lokasi);
++"&text=Wisuda Aan"
++"&dates=20260505T020000Z/20260505T050000Z"
++"&details=Halo "+nama
++"&location=Serang";
 }
 
+/* buka undangan */
 function bukaUndangan(){
 let nama=document.getElementById("namaInput").value.trim();
-
-if(nama===""){
-alert("Isi nama dulu ya!");
-return;
-}
+if(!nama){alert("Isi nama dulu!");return;}
 
 document.getElementById("namaTampil").innerText=nama;
 
-/* WA */
 document.getElementById("waLink").href=
-"https://api.whatsapp.com/send?phone=6283878272726&text="+encodeURIComponent("Halo Aan 👋, saya "+nama+" akan hadir 🎓");
+"https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya "+nama+" hadir";
 
-/* kalender */
 document.getElementById("kalenderLink").href=buatLinkKalender(nama);
-document.getElementById("kalenderLink").target="_blank";
 
-/* Google Sheets */
+/* kirim ke sheets */
 fetch("https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec",{
 method:"POST",
 body:JSON.stringify({nama:nama,waktu:new Date().toLocaleString()})
@@ -290,16 +299,17 @@ document.body.appendChild(c);
 }
 }
 
+/* countdown */
 let target=new Date("2026-05-05T09:00:00").getTime();
 
 setInterval(()=>{
 let now=new Date().getTime();
 let s=target-now;
 
-document.getElementById("hari").innerText=String(Math.floor(s/(1000*60*60*24))).padStart(2,'0');
-document.getElementById("jam").innerText=String(Math.floor((s%(1000*60*60*24))/(1000*60*60))).padStart(2,'0');
-document.getElementById("menit").innerText=String(Math.floor((s%(1000*60*60))/(1000*60))).padStart(2,'0');
-document.getElementById("detik").innerText=String(Math.floor((s%(1000*60))/1000)).padStart(2,'0');
+document.getElementById("hari").innerText=Math.floor(s/(1000*60*60*24));
+document.getElementById("jam").innerText=Math.floor((s%(1000*60*60*24))/(1000*60*60));
+document.getElementById("menit").innerText=Math.floor((s%(1000*60*60))/(1000*60));
+document.getElementById("detik").innerText=Math.floor((s%(1000*60))/1000);
 },1000);
 </script>
 
