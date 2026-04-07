@@ -3,21 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Undangan Wisuda</title>
+<title>Undangan Wisuda Aan</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
-body{margin:0;height:100vh;overflow:hidden;position:relative;}
+body{
+margin:0;
+min-height:100vh;
+overflow:auto;
+padding:20px;
+background:#111;
+}
 
 /* background */
 .bg{
 position:fixed;
 width:100%;
 height:100%;
-background:url('background.jpg') no-repeat center center/cover;
+background:
+linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+url('background.jpg') no-repeat center center/cover;
 z-index:-2;
 }
 
@@ -29,23 +37,34 @@ background:rgba(0,0,0,0.4);
 z-index:-1;
 }
 
+/* container */
+.container{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
 /* card */
 .card{
-width:90%;
+width:100%;
 max-width:400px;
 padding:30px 20px;
 border-radius:25px;
 text-align:center;
 color:white;
-
 background:rgba(0,0,0,0.35);
 backdrop-filter:blur(20px);
-
 box-shadow:0 10px 30px rgba(0,0,0,0.3);
 border:1px solid rgba(255,255,255,0.2);
-
+animation:fadeInUp 1s ease;
 position:relative;
 z-index:2;
+}
+
+@keyframes fadeInUp{
+from{opacity:0;transform:translateY(40px);}
+to{opacity:1;transform:translateY(0);}
 }
 
 .toga{
@@ -53,6 +72,7 @@ width:70px;
 margin-bottom:10px;
 animation:float 3s infinite;
 }
+
 @keyframes float{
 0%,100%{transform:translateY(0);}
 50%{transform:translateY(-10px);}
@@ -86,7 +106,7 @@ transition:0.3s;
 }
 
 button{background:white;color:black;}
-button:hover{transform:scale(1.1);}
+button:hover{transform:scale(1.05);}
 
 .maps{background:white;color:black;}
 .wa{background:#25D366;color:white;}
@@ -98,7 +118,7 @@ button:hover{transform:scale(1.1);}
 @keyframes fadeOut{to{opacity:0;transform:scale(0.8);}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(50px);}to{opacity:1;}}
 
-/* flip countdown */
+/* countdown */
 .flip-container{
 display:flex;
 justify-content:space-between;
@@ -116,27 +136,27 @@ border-radius:10px;
 padding:10px 0;
 font-size:16px;
 font-weight:bold;
-backdrop-filter:blur(10px);
-transition:0.3s;
 }
 
-.flip.animate{transform:rotateX(360deg);}
-
-/* confetti */
+/* confetti (DI BELAKANG) */
 .confetti{
 position:fixed;
 width:8px;
 height:8px;
 top:-10px;
 animation:fall linear infinite;
+z-index:0;
+pointer-events:none;
+opacity:0.7;
 }
+
 @keyframes fall{to{transform:translateY(100vh);}}
 
-.container{
-display:flex;
-justify-content:center;
-align-items:center;
-height:100%;
+/* responsive */
+@media (max-width:480px){
+h1{font-size:20px;}
+h3{font-size:16px;}
+.card{padding:25px 15px;}
 }
 </style>
 </head>
@@ -174,7 +194,7 @@ saya mengundang kamu untuk hadir di acara wisuda saya</p>
 📍 Hotel Horison Ultima Ratu Serang
 </div>
 
-<!-- COUNTDOWN FLIP -->
+<!-- COUNTDOWN -->
 <div class="flip-container">
 <div class="flip-box"><div class="label">Hari</div><div class="flip" id="hari">00</div></div>
 <div class="flip-box"><div class="label">Jam</div><div class="flip" id="jam">00</div></div>
@@ -184,8 +204,7 @@ saya mengundang kamu untuk hadir di acara wisuda saya</p>
 
 <a href="https://bit.ly/48hwQVU" target="_blank" class="btn maps">📍 Lihat Lokasi</a>
 
-<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wisuda+Aan&dates=20260505T020000Z/20260505T050000Z&location=Hotel+Horison+Ultima+Ratu+Serang"
-target="_blank" class="btn maps">📅 Tambah ke Kalender</a>
+<a id="kalenderLink" class="btn maps">📅 Tambah ke Kalender</a>
 
 <a id="waLink" class="btn wa">💬 Konfirmasi Kehadiran</a>
 
@@ -199,16 +218,49 @@ target="_blank" class="btn maps">📅 Tambah ke Kalender</a>
 </audio>
 
 <script>
+function buatLinkKalender(nama){
+let judul="Wisuda Aan, A.Md.Kom.";
+let deskripsi="Halo "+nama+", jangan lupa hadir di wisuda Aan 🎓";
+let lokasi="Hotel Horison Ultima Ratu Serang";
+
+let mulai="20260505T020000Z";
+let selesai="20260505T050000Z";
+
+return "https://calendar.google.com/calendar/render?action=TEMPLATE"
++"&text="+encodeURIComponent(judul)
++"&dates="+mulai+"/"+selesai
++"&details="+encodeURIComponent(deskripsi)
++"&location="+encodeURIComponent(lokasi);
+}
+
 function bukaUndangan(){
-let nama=document.getElementById("namaInput").value;
-if(nama===""){alert("Isi nama dulu ya!");return;}
+let nama=document.getElementById("namaInput").value.trim();
+
+if(nama===""){
+alert("Isi nama dulu ya!");
+return;
+}
 
 document.getElementById("namaTampil").innerText=nama;
 
 /* WA */
-let pesan="Halo Aan, saya "+nama+" bisa hadir di wisudamu";
-let waUrl="https://api.whatsapp.com/send?phone=6283878272726&text="+encodeURIComponent(pesan);
-document.getElementById("waLink").href=waUrl;
+let pesan="Halo Aan 👋, saya "+nama+" insyaAllah akan hadir di wisudamu 🎓";
+document.getElementById("waLink").href=
+"https://api.whatsapp.com/send?phone=6283878272726&text="+encodeURIComponent(pesan);
+
+/* kalender */
+let linkKalender=buatLinkKalender(nama);
+document.getElementById("kalenderLink").href=linkKalender;
+document.getElementById("kalenderLink").target="_blank";
+
+/* kirim ke Google Sheets */
+fetch("https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec",{
+method:"POST",
+body:JSON.stringify({
+nama:nama,
+waktu:new Date().toLocaleString()
+})
+});
 
 /* animasi */
 let h1=document.getElementById("halaman1");
@@ -223,7 +275,7 @@ h2.classList.add("fadeIn");
 },500);
 
 /* musik */
-document.getElementById("musik").play();
+document.getElementById("musik").play().catch(()=>{});
 
 /* confetti */
 for(let i=0;i<40;i++){
@@ -236,33 +288,23 @@ document.body.appendChild(c);
 }
 }
 
-/* COUNTDOWN FLIP */
-let target=new Date("May 5, 2026 09:00:00").getTime();
+/* countdown */
+let target=new Date("2026-05-05T09:00:00").getTime();
 
 setInterval(()=>{
 let now=new Date().getTime();
-let selisih=target-now;
+let s=target-now;
 
-let h=Math.floor(selisih/(1000*60*60*24));
-let j=Math.floor((selisih%(1000*60*60*24))/(1000*60*60));
-let m=Math.floor((selisih%(1000*60*60))/(1000*60));
-let d=Math.floor((selisih%(1000*60))/1000);
+let h=Math.floor(s/(1000*60*60*24));
+let j=Math.floor((s%(1000*60*60*24))/(1000*60*60));
+let m=Math.floor((s%(1000*60*60))/(1000*60));
+let d=Math.floor((s%(1000*60))/1000);
 
-update("hari",h);
-update("jam",j);
-update("menit",m);
-update("detik",d);
-
+document.getElementById("hari").innerText=String(h).padStart(2,'0');
+document.getElementById("jam").innerText=String(j).padStart(2,'0');
+document.getElementById("menit").innerText=String(m).padStart(2,'0');
+document.getElementById("detik").innerText=String(d).padStart(2,'0');
 },1000);
-
-function update(id,val){
-let el=document.getElementById(id);
-if(el.innerText!=val){
-el.classList.add("animate");
-setTimeout(()=>el.classList.remove("animate"),300);
-}
-el.innerText=String(val).padStart(2,'0');
-}
 </script>
 
 </body>
