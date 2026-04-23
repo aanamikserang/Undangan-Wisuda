@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Undangan Wisuda Aan - Guest Book Firebase</title>
+<title>Undangan Wisuda Aan - Estetik & Animasi</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -25,7 +25,7 @@ body{
   overflow-x:hidden;
 }
 
-/* ===== BACKGROUND ===== */
+/* ===== BACKGROUND DENGAN ANIMASI ===== */
 .bg{
   position:fixed;
   top:0;
@@ -38,14 +38,20 @@ body{
   background-repeat:no-repeat;
   z-index:-2;
   transition:transform 0.1s linear;
+  animation: subtleZoom 20s ease-in-out infinite alternate;
 }
 
-/* TANPA BLUR */
+@keyframes subtleZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
+/* Overlay dengan gradasi dinamis */
 .overlay{
   position:fixed;
   width:100%;
   height:100%;
-  background:rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 100%);
   z-index:-1;
 }
 
@@ -56,9 +62,21 @@ body{
   align-items:center;
   min-height:100vh;
   padding:20px;
+  animation: fadeInUp 0.8s ease-out;
 }
 
-/* ===== CARD ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== CARD DENGAN GLOW EFFECT ===== */
 .card{
   width:100%;
   max-width:450px;
@@ -67,20 +85,37 @@ body{
   text-align:center;
   background:rgba(0,0,0,0.35);
   border:1px solid rgba(255,255,255,0.2);
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(255,215,0,0.1);
   margin:auto;
   backdrop-filter: blur(2px);
+  animation: cardGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes cardGlow {
+  0% {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 10px rgba(255,215,0,0.1);
+    border-color: rgba(255,255,255,0.2);
+  }
+  100% {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255,215,0,0.3);
+    border-color: rgba(255,215,0,0.4);
+  }
 }
 
 .toga{
   width:70px;
   margin-bottom:10px;
-  animation:float 3s infinite;
+  animation: float 3s infinite, togaGlow 2s ease-in-out infinite alternate;
 }
 
 @keyframes float{
   0%,100%{transform:translateY(0);}
   50%{transform:translateY(-10px);}
+}
+
+@keyframes togaGlow {
+  0% { filter: drop-shadow(0 0 2px gold); }
+  100% { filter: drop-shadow(0 0 10px gold); }
 }
 
 input, textarea{
@@ -92,16 +127,14 @@ input, textarea{
   color:white;
   text-align:center;
   margin-top:15px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
-textarea{
-  text-align: left;
-  resize: vertical;
-  border-radius:20px;
-}
+
 input:focus, textarea:focus{
   outline: none;
   border-color: gold;
+  box-shadow: 0 0 15px rgba(255,215,0,0.3);
+  transform: scale(1.02);
 }
 
 button,.btn{
@@ -114,20 +147,50 @@ button,.btn{
   font-weight:600;
   cursor:pointer;
   text-decoration:none;
-  transition:0.2s;
+  transition: all 0.3s ease;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+button:active, .btn:active {
+  transform: translateY(1px);
+}
+
+/* Ripple effect */
+button::after, .btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:active::after, .btn:active::after {
+  width: 200px;
+  height: 200px;
 }
 
 button{background:white;color:black;}
 .btn-maps{background:white;color:black;}
 .btn-calendar{background:white;color:black;}
 .btn-komentar{
-  background: #ffb347;
-  color: #1e2a3a;
+  background: linear-gradient(135deg, #ffb347, #ff8c00);
+  color: white;
   font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 15px rgba(255,140,0,0.3);
 }
-.btn-komentar:hover{ background: #ff9f1c; }
+.btn-komentar:hover{ background: linear-gradient(135deg, #ff9f1c, #ff7700); }
 .btn-wa{background:#25D366;color:white;}
 
 #halaman2{display:none;}
@@ -210,9 +273,14 @@ button{background:white;color:black;}
   justify-content: center;
   padding: 20px;
   overflow-y: auto;
+  animation: fadeIn 0.3s ease;
 }
 
-/* Konten modal dengan background transparan */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .modal-content {
   max-width: 550px;
   margin: auto;
@@ -223,7 +291,19 @@ button{background:white;color:black;}
   padding: 25px 20px;
   position: relative;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-  text-align: center; /* SEMUA TEKS DI MODAL MENJADI RATA TENGAH */
+  text-align: center;
+  animation: modalPop 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .modal-content h2 {
@@ -252,13 +332,14 @@ button{background:white;color:black;}
   cursor: pointer;
   font-weight: bold;
   margin: 0;
+  transition: all 0.3s;
 }
 
 #closeGuestbook:hover {
   background: crimson;
+  transform: scale(1.05);
 }
 
-/* Input di dalam modal transparan */
 .modal-content input,
 .modal-content textarea {
   background: rgba(255,255,255,0.15);
@@ -277,18 +358,12 @@ button{background:white;color:black;}
   border-color: gold;
 }
 
-.modal-content input::placeholder,
-.modal-content textarea::placeholder {
-  color: rgba(255,255,255,0.6);
-  text-align: center;
-}
-
 .guest-list {
   max-height: 400px;
   overflow-y: auto;
   margin-top: 20px;
   padding-right: 5px;
-  text-align: left; /* KONTEN UCAPAN TETAP RATA KIRI AGAR RAPI */
+  text-align: left;
 }
 
 .guest-item {
@@ -299,11 +374,26 @@ button{background:white;color:black;}
   border-radius: 24px;
   text-align: left;
   border-left: 4px solid gold;
-  transition: 0.2s;
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease-out;
 }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .guest-item:hover {
   background: rgba(255,255,240,0.2);
+  transform: translateX(5px);
 }
+
 .guest-name {
   font-weight: bold;
   color: #FFE484;
@@ -329,27 +419,85 @@ button{background:white;color:black;}
 }
 .guest-list::-webkit-scrollbar-thumb {
   background: gold;
+  border-radius: 10px;
 }
 
-/* confetti */
+/* ========== CONFETTI SUPER MEWAH ========== */
 .confetti{
   position:fixed;
-  width:8px;
-  height:8px;
+  width:10px;
+  height:10px;
   top:-10px;
   animation:fall linear infinite;
-  z-index:0;
+  z-index:999;
   pointer-events: none;
-}
-@keyframes fall{to{transform:translateY(100vh));}}
-
-.loading-spinner {
-  text-align: center;
-  padding: 20px;
-  color: gold;
+  border-radius: 2px;
 }
 
-/* Tombol berurutan dari atas ke bawah */
+@keyframes fall{
+  0%{
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 1;
+  }
+  100%{
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Sparkle / Bintang jatuh */
+.sparkle {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  background: gold;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 998;
+  animation: twinkle 1.5s ease-out forwards;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* Partikel floating di background */
+.floating-particle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: rgba(255,215,0,0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  animation: floatParticle 15s linear infinite;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Tombol berurutan */
 .tombol-wrapper {
   display: flex;
   flex-direction: column;
@@ -360,6 +508,19 @@ button{background:white;color:black;}
 .tombol-wrapper .btn,
 .tombol-wrapper button {
   margin-top: 0;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  text-align: center;
+  padding: 20px;
+  color: gold;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
 /* mobile */
@@ -379,6 +540,9 @@ button{background:white;color:black;}
 
 <div class="bg" id="bg"></div>
 <div class="overlay"></div>
+
+<!-- Floating particles background -->
+<div id="particleContainer"></div>
 
 <div class="wrapper" id="appRoot">
   <!-- HALAMAN 1: BUKA UNDANGAN -->
@@ -414,7 +578,7 @@ button{background:white;color:black;}
       <div class="countdown-unit"><div class="flip-card" id="cardDetik"><div class="flip-card-inner"><div class="flip-front">00</div><div class="flip-back">00</div></div></div><div class="label-countdown">Detik</div></div>
     </div>
 
-    <!-- TOMBOL BERURUTAN DARI ATAS KE BAWAH -->
+    <!-- TOMBOL BERURUTAN -->
     <div class="tombol-wrapper">
       <a href="https://bit.ly/48hwQVU" target="_blank" class="btn btn-maps">📍 Lihat Lokasi</a>
       <a id="kalenderLink" class="btn btn-calendar">📅 Tambah ke Kalender</a>
@@ -424,7 +588,7 @@ button{background:white;color:black;}
   </div>
 </div>
 
-<!-- MODAL GUEST BOOK DENGAN BACKGROUND TRANSPARAN -->
+<!-- MODAL GUEST BOOK -->
 <div id="guestbookModal">
   <div class="modal-content">
     <button id="closeGuestbook">✖ Tutup</button>
@@ -450,21 +614,70 @@ const firebaseConfig = {
   databaseURL: "https://undangan-wisuda-123-default-rtdb.firebaseio.com/"
 };
 
-// Inisialisasi Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const guestbookRef = database.ref('ucapan');
 
-// ===================== FUNGSI GUEST BOOK =====================
+// ===================== ANIMASI PARTIKEL BACKGROUND =====================
+function createFloatingParticles() {
+  const container = document.getElementById('particleContainer');
+  for(let i = 0; i < 50; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'floating-particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 15 + 's';
+    particle.style.animationDuration = 10 + Math.random() * 10 + 's';
+    particle.style.width = (2 + Math.random() * 4) + 'px';
+    particle.style.height = particle.style.width;
+    particle.style.background = `rgba(255, ${150 + Math.random() * 105}, 0, ${0.2 + Math.random() * 0.3})`;
+    container.appendChild(particle);
+  }
+}
 
-// Memuat semua ucapan dari Firebase (realtime)
+// ===================== CONFETTI SUPER MEWAH =====================
+function superConfetti() {
+  const colors = ['#FFD700', '#FFA500', '#FF6347', '#00CED1', '#FF69B4', '#7B68EE', '#32CD32', '#FFD700'];
+  const confettiCount = 150;
+  
+  for(let i = 0; i < confettiCount; i++) {
+    setTimeout(() => {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.style.left = Math.random() * 100 + '%';
+      c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      c.style.width = (5 + Math.random() * 10) + 'px';
+      c.style.height = (5 + Math.random() * 10) + 'px';
+      c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      c.style.animationDuration = (1.5 + Math.random() * 3) + 's';
+      c.style.animationDelay = Math.random() * 0.5 + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 5000);
+    }, i * 20);
+  }
+  
+  // Tambahan sparkle effect
+  for(let i = 0; i < 80; i++) {
+    setTimeout(() => {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.width = (2 + Math.random() * 5) + 'px';
+      s.style.height = s.style.width;
+      s.style.background = `radial-gradient(circle, gold, orange)`;
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 1500);
+    }, i * 30);
+  }
+}
+
+// ===================== FUNGSI GUEST BOOK =====================
 function loadGuestMessages() {
   const container = document.getElementById("guestListContainer");
   if(!container) return;
   
   container.innerHTML = '<div class="loading-spinner">⏳ Memuat ucapan...</div>';
   
-  // Listen ke perubahan data (realtime)
   guestbookRef.on('value', (snapshot) => {
     const messages = [];
     snapshot.forEach((childSnapshot) => {
@@ -479,7 +692,6 @@ function loadGuestMessages() {
       return;
     }
     
-    // Urutkan dari yang terbaru (berdasarkan timestamp)
     messages.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
     
     let html = "";
@@ -492,12 +704,11 @@ function loadGuestMessages() {
     });
     container.innerHTML = html;
   }, (error) => {
-    console.error("Error loading messages:", error);
-    container.innerHTML = "<p style='text-align:center; color:red;'>Gagal memuat ucapan. Periksa koneksi.</p>";
+    console.error("Error:", error);
+    container.innerHTML = "<p style='text-align:center; color:red;'>Gagal memuat ucapan.</p>";
   });
 }
 
-// Menyimpan ucapan ke Firebase
 async function saveGuestMessage(nama, pesan) {
   if(!nama.trim() || !pesan.trim()) { 
     alert("Nama dan pesan tidak boleh kosong!"); 
@@ -516,26 +727,22 @@ async function saveGuestMessage(nama, pesan) {
   
   try {
     await guestbookRef.push(newMessage);
+    superConfetti(); // Confetti saat berhasil kirim ucapan!
     alert("✅ Ucapan terkirim! Terima kasih atas doa dan ucapannya.");
     return true;
   } catch(error) {
-    console.error("Error saving message:", error);
-    alert("❌ Gagal mengirim ucapan. Periksa koneksi internet Anda.");
+    console.error("Error:", error);
+    alert("❌ Gagal mengirim ucapan.");
     return false;
   }
 }
 
-// Menampilkan modal guestbook
 function showGuestbook() {
   const modal = document.getElementById("guestbookModal");
   if(modal) {
     modal.style.display = "flex";
     let currentName = document.getElementById("namaTampil")?.innerText || "";
-    if(currentName && currentName !== "") {
-      document.getElementById("guestName").value = currentName;
-    } else {
-      document.getElementById("guestName").value = "";
-    }
+    document.getElementById("guestName").value = currentName;
     document.getElementById("guestMessage").value = "";
   }
 }
@@ -550,7 +757,7 @@ function escapeHtml(str) {
   }); 
 }
 
-// ========== COUNTDOWN 3D FLIP UPDATE ==========
+// ========== COUNTDOWN 3D ==========
 function updateCountdown3D() {
   const target = new Date("2026-05-05T09:00:00").getTime();
   const now = new Date().getTime();
@@ -599,6 +806,7 @@ function getNamaDariURL(){
 }
 
 window.addEventListener("load",()=>{
+  createFloatingParticles();
   let namaURL=getNamaDariURL();
   if(namaURL) document.getElementById("namaInput").value=decodeURIComponent(namaURL);
   setInterval(updateCountdown3D, 1000);
@@ -620,26 +828,15 @@ function bukaUndangan(){
   document.getElementById("halaman1").style.display="none";
   document.getElementById("halaman2").style.display="block";
   
-  // Putar musik
   let audio=document.getElementById("musik");
   audio.currentTime=0; 
   audio.play().catch(e=>console.log("Audio play error:", e));
   
-  // Confetti effect
-  for(let i=0;i<60;i++){ 
-    let c=document.createElement("div"); 
-    c.className="confetti"; 
-    c.style.left=Math.random()*100+"%"; 
-    c.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)"; 
-    c.style.animationDuration=(2+Math.random()*3)+"s"; 
-    c.style.width=(5+Math.random()*8)+"px";
-    c.style.height=(5+Math.random()*8)+"px";
-    document.body.appendChild(c); 
-    setTimeout(()=>c.remove(),5000);
-  }
+  // SUPER CONFETTI SAAT BUKA UNDANGAN!
+  superConfetti();
 }
 
-// Event listener untuk tombol dan modal
+// Event listener
 document.addEventListener("DOMContentLoaded", ()=>{
   const btnUcap = document.getElementById("btnKirimUcapan");
   if(btnUcap) btnUcap.addEventListener("click", (e)=>{ 
@@ -668,7 +865,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     });
   }
   
-  // Tutup modal jika klik di luar
   document.getElementById("guestbookModal").addEventListener("click", (e) => {
     if(e.target === document.getElementById("guestbookModal")) {
       document.getElementById("guestbookModal").style.display="none";
@@ -676,7 +872,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
   });
 });
 
-// Load messages
 setTimeout(() => {
   if(document.getElementById("guestListContainer")) {
     loadGuestMessages();
