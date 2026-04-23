@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Undangan Wisuda Aan - Estetik & Animasi</title>
+<title>Undangan Wisuda Aan - Guest Book Firebase</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -46,7 +46,6 @@ body{
   100% { transform: scale(1.05); }
 }
 
-/* Overlay dengan gradasi dinamis */
 .overlay{
   position:fixed;
   width:100%;
@@ -55,7 +54,6 @@ body{
   z-index:-1;
 }
 
-/* ===== CENTER ===== */
 .wrapper{
   display:flex;
   justify-content:center;
@@ -66,17 +64,10 @@ body{
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== CARD DENGAN GLOW EFFECT ===== */
 .card{
   width:100%;
   max-width:450px;
@@ -92,14 +83,8 @@ body{
 }
 
 @keyframes cardGlow {
-  0% {
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 10px rgba(255,215,0,0.1);
-    border-color: rgba(255,255,255,0.2);
-  }
-  100% {
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255,215,0,0.3);
-    border-color: rgba(255,215,0,0.4);
-  }
+  0% { box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 10px rgba(255,215,0,0.1); border-color: rgba(255,255,255,0.2); }
+  100% { box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255,215,0,0.3); border-color: rgba(255,215,0,0.4); }
 }
 
 .toga{
@@ -116,6 +101,72 @@ body{
 @keyframes togaGlow {
   0% { filter: drop-shadow(0 0 2px gold); }
   100% { filter: drop-shadow(0 0 10px gold); }
+}
+
+/* Judul Wisuda */
+.judul-wisuda {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 10px 0 5px 0;
+  color: #FFE484;
+  letter-spacing: 1px;
+}
+
+.judul-wisuda small {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.8);
+}
+
+/* ========== INFO ACARA - TANPA KOTAK, HANYA GARIS BAWAH ========== */
+.info-acara {
+  margin: 20px 0 10px 0;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,215,0,0.3);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-icon {
+  font-size: 22px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.info-text {
+  flex: 1;
+  text-align: left;
+}
+
+.info-label {
+  font-size: 11px;
+  opacity: 0.6;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.info-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFE484;
+  display: block;
+}
+
+.info-desc {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-top: 4px;
 }
 
 input, textarea{
@@ -149,8 +200,6 @@ button,.btn{
   text-decoration:none;
   transition: all 0.3s ease;
   text-align: center;
-  position: relative;
-  overflow: hidden;
 }
 
 button:hover, .btn:hover {
@@ -160,25 +209,6 @@ button:hover, .btn:hover {
 
 button:active, .btn:active {
   transform: translateY(1px);
-}
-
-/* Ripple effect */
-button::after, .btn::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-button:active::after, .btn:active::after {
-  width: 200px;
-  height: 200px;
 }
 
 button{background:white;color:black;}
@@ -258,7 +288,7 @@ button{background:white;color:black;}
   text-align: center;
 }
 
-/* ========== MODAL GUEST BOOK TRANSPARAN ========== */
+/* ========== MODAL GUEST BOOK ========== */
 #guestbookModal {
   display: none;
   position: fixed;
@@ -273,12 +303,6 @@ button{background:white;color:black;}
   justify-content: center;
   padding: 20px;
   overflow-y: auto;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .modal-content {
@@ -296,14 +320,8 @@ button{background:white;color:black;}
 }
 
 @keyframes modalPop {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .modal-content h2 {
@@ -332,7 +350,6 @@ button{background:white;color:black;}
   cursor: pointer;
   font-weight: bold;
   margin: 0;
-  transition: all 0.3s;
 }
 
 #closeGuestbook:hover {
@@ -350,12 +367,6 @@ button{background:white;color:black;}
 
 .modal-content textarea {
   text-align: center;
-}
-
-.modal-content input:focus,
-.modal-content textarea:focus {
-  background: rgba(0,0,0,0.5);
-  border-color: gold;
 }
 
 .guest-list {
@@ -379,14 +390,8 @@ button{background:white;color:black;}
 }
 
 @keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .guest-item:hover {
@@ -410,7 +415,6 @@ button{background:white;color:black;}
   text-align: right;
 }
 
-/* scrollbar */
 .guest-list::-webkit-scrollbar {
   width: 4px;
 }
@@ -422,7 +426,7 @@ button{background:white;color:black;}
   border-radius: 10px;
 }
 
-/* ========== CONFETTI SUPER MEWAH ========== */
+/* ========== CONFETTI ========== */
 .confetti{
   position:fixed;
   width:10px;
@@ -445,7 +449,6 @@ button{background:white;color:black;}
   }
 }
 
-/* Sparkle / Bintang jatuh */
 .sparkle {
   position: fixed;
   width: 3px;
@@ -458,17 +461,10 @@ button{background:white;color:black;}
 }
 
 @keyframes twinkle {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0);
-  }
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0); }
 }
 
-/* Partikel floating di background */
 .floating-particle {
   position: fixed;
   width: 4px;
@@ -481,23 +477,12 @@ button{background:white;color:black;}
 }
 
 @keyframes floatParticle {
-  0% {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.5;
-  }
-  90% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(-100px) rotate(360deg);
-    opacity: 0;
-  }
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
 }
 
-/* Tombol berurutan */
 .tombol-wrapper {
   display: flex;
   flex-direction: column;
@@ -510,7 +495,6 @@ button{background:white;color:black;}
   margin-top: 0;
 }
 
-/* Loading spinner */
 .loading-spinner {
   text-align: center;
   padding: 20px;
@@ -523,16 +507,16 @@ button{background:white;color:black;}
   50% { opacity: 1; }
 }
 
-/* mobile */
 @media(max-width:600px){
   .card{padding:25px 15px;}
   h1{font-size:20px;}
   .flip-card{ width: 55px; height: 70px; }
   .flip-front, .flip-back{ font-size: 1.6rem; }
-  .modal-content {
-    margin: 10px;
-    padding: 20px 15px;
-  }
+  .modal-content { margin: 10px; padding: 20px 15px; }
+  .info-item { gap: 10px; }
+  .info-icon { font-size: 18px; min-width: 30px; }
+  .info-value { font-size: 14px; }
+  .judul-wisuda { font-size: 18px; }
 }
 </style>
 </head>
@@ -541,11 +525,9 @@ button{background:white;color:black;}
 <div class="bg" id="bg"></div>
 <div class="overlay"></div>
 
-<!-- Floating particles background -->
 <div id="particleContainer"></div>
 
 <div class="wrapper" id="appRoot">
-  <!-- HALAMAN 1: BUKA UNDANGAN -->
   <div class="card" id="halaman1">
     <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
     <h1>Undangan Wisuda</h1>
@@ -555,22 +537,47 @@ button{background:white;color:black;}
     <button onclick="bukaUndangan()">Buka Undangan</button>
   </div>
 
-  <!-- HALAMAN 2: UNDANGAN UTAMA -->
   <div class="card" id="halaman2">
     <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
-    <p style="margin-bottom:10px; font-size:16px;">Assalamu'alaikum Wr. Wb.</p>
+    <p style="margin-bottom:5px; font-size:16px;">Assalamu'alaikum Wr. Wb.</p>
     <h1>Hai <span id="namaTampil"></span> 👋</h1>
     <p style="margin-top:10px;">Dengan penuh rasa syukur,<br>saya mengundang kamu hadir di wisuda saya</p>
-    <div style="margin-top:10px; line-height:1.6;">
-      🎓 <b>Wisuda Aan, A.Md.Kom.</b><br>
-      📅 Selasa, 5 Mei 2026<br>
-      ⏰ 09.00 WIB<br>
-      📍 Hotel Horison Ultima Ratu Serang
+    
+    <!-- Judul Wisuda (terpisah, tidak masuk ke info acara) -->
+    <div class="judul-wisuda">
+      🎓 Wisuda Aan, A.Md.Kom.
     </div>
+    
+    <!-- INFO ACARA - TANPA KOTAK, HANYA GARIS BAWAH -->
+    <div class="info-acara">
+      <div class="info-item">
+        <div class="info-icon">📅</div>
+        <div class="info-text">
+          <span class="info-label">HARI & TANGGAL</span>
+          <span class="info-value">Selasa, 5 Mei 2026</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">⏰</div>
+        <div class="info-text">
+          <span class="info-label">WAKTU</span>
+          <span class="info-value">09.00 WIB</span>
+          <div class="info-desc">Diharapkan hadir 15 menit sebelum acara</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div class="info-text">
+          <span class="info-label">TEMPAT</span>
+          <span class="info-value">Hotel Horison Ultima Ratu Serang</span>
+          <div class="info-desc">Ballroom Lt. 2</div>
+        </div>
+      </div>
+    </div>
+
     <p style="margin-top:15px; font-style:italic;">Rayakan momen spesial ini bersamaku!<br>Kehadiranmu sangat berarti.</p>
     <p style="margin-top:20px;">Wassalamu’alaikum Wr. Wb.</p>
 
-    <!-- COUNTDOWN 3D FLIP -->
     <div class="flip-container" id="flipCountdown">
       <div class="countdown-unit"><div class="flip-card" id="cardHari"><div class="flip-card-inner"><div class="flip-front">00</div><div class="flip-back">00</div></div></div><div class="label-countdown">Hari</div></div>
       <div class="countdown-unit"><div class="flip-card" id="cardJam"><div class="flip-card-inner"><div class="flip-front">00</div><div class="flip-back">00</div></div></div><div class="label-countdown">Jam</div></div>
@@ -578,7 +585,6 @@ button{background:white;color:black;}
       <div class="countdown-unit"><div class="flip-card" id="cardDetik"><div class="flip-card-inner"><div class="flip-front">00</div><div class="flip-back">00</div></div></div><div class="label-countdown">Detik</div></div>
     </div>
 
-    <!-- TOMBOL BERURUTAN -->
     <div class="tombol-wrapper">
       <a href="https://bit.ly/48hwQVU" target="_blank" class="btn btn-maps">📍 Lihat Lokasi</a>
       <a id="kalenderLink" class="btn btn-calendar">📅 Tambah ke Kalender</a>
@@ -588,7 +594,6 @@ button{background:white;color:black;}
   </div>
 </div>
 
-<!-- MODAL GUEST BOOK -->
 <div id="guestbookModal">
   <div class="modal-content">
     <button id="closeGuestbook">✖ Tutup</button>
@@ -609,7 +614,6 @@ button{background:white;color:black;}
 </audio>
 
 <script>
-// ===================== KONFIGURASI FIREBASE =====================
 const firebaseConfig = {
   databaseURL: "https://undangan-wisuda-123-default-rtdb.firebaseio.com/"
 };
@@ -618,7 +622,6 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const guestbookRef = database.ref('ucapan');
 
-// ===================== ANIMASI PARTIKEL BACKGROUND =====================
 function createFloatingParticles() {
   const container = document.getElementById('particleContainer');
   for(let i = 0; i < 50; i++) {
@@ -634,12 +637,9 @@ function createFloatingParticles() {
   }
 }
 
-// ===================== CONFETTI SUPER MEWAH =====================
 function superConfetti() {
-  const colors = ['#FFD700', '#FFA500', '#FF6347', '#00CED1', '#FF69B4', '#7B68EE', '#32CD32', '#FFD700'];
-  const confettiCount = 150;
-  
-  for(let i = 0; i < confettiCount; i++) {
+  const colors = ['#FFD700', '#FFA500', '#FF6347', '#00CED1', '#FF69B4', '#7B68EE', '#32CD32'];
+  for(let i = 0; i < 120; i++) {
     setTimeout(() => {
       const c = document.createElement('div');
       c.className = 'confetti';
@@ -649,42 +649,21 @@ function superConfetti() {
       c.style.height = (5 + Math.random() * 10) + 'px';
       c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
       c.style.animationDuration = (1.5 + Math.random() * 3) + 's';
-      c.style.animationDelay = Math.random() * 0.5 + 's';
       document.body.appendChild(c);
       setTimeout(() => c.remove(), 5000);
     }, i * 20);
   }
-  
-  // Tambahan sparkle effect
-  for(let i = 0; i < 80; i++) {
-    setTimeout(() => {
-      const s = document.createElement('div');
-      s.className = 'sparkle';
-      s.style.left = Math.random() * 100 + '%';
-      s.style.top = Math.random() * 100 + '%';
-      s.style.width = (2 + Math.random() * 5) + 'px';
-      s.style.height = s.style.width;
-      s.style.background = `radial-gradient(circle, gold, orange)`;
-      document.body.appendChild(s);
-      setTimeout(() => s.remove(), 1500);
-    }, i * 30);
-  }
 }
 
-// ===================== FUNGSI GUEST BOOK =====================
 function loadGuestMessages() {
   const container = document.getElementById("guestListContainer");
   if(!container) return;
-  
   container.innerHTML = '<div class="loading-spinner">⏳ Memuat ucapan...</div>';
   
   guestbookRef.on('value', (snapshot) => {
     const messages = [];
     snapshot.forEach((childSnapshot) => {
-      messages.push({
-        id: childSnapshot.key,
-        ...childSnapshot.val()
-      });
+      messages.push({ id: childSnapshot.key, ...childSnapshot.val() });
     });
     
     if(messages.length === 0) {
@@ -693,7 +672,6 @@ function loadGuestMessages() {
     }
     
     messages.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-    
     let html = "";
     messages.forEach(msg => {
       html += `<div class="guest-item">
@@ -703,180 +681,103 @@ function loadGuestMessages() {
       </div>`;
     });
     container.innerHTML = html;
-  }, (error) => {
-    console.error("Error:", error);
-    container.innerHTML = "<p style='text-align:center; color:red;'>Gagal memuat ucapan.</p>";
   });
 }
 
 async function saveGuestMessage(nama, pesan) {
-  if(!nama.trim() || !pesan.trim()) { 
-    alert("Nama dan pesan tidak boleh kosong!"); 
-    return false; 
-  }
-  
+  if(!nama.trim() || !pesan.trim()) { alert("Nama dan pesan tidak boleh kosong!"); return false; }
   const waktu = new Date().toLocaleString("id-ID");
-  const timestamp = Date.now();
-  
-  const newMessage = {
-    nama: nama.trim(),
-    pesan: pesan.trim(),
-    waktu: waktu,
-    timestamp: timestamp
-  };
-  
+  const newMessage = { nama: nama.trim(), pesan: pesan.trim(), waktu: waktu, timestamp: Date.now() };
   try {
     await guestbookRef.push(newMessage);
-    superConfetti(); // Confetti saat berhasil kirim ucapan!
-    alert("✅ Ucapan terkirim! Terima kasih atas doa dan ucapannya.");
+    superConfetti();
+    alert("✅ Ucapan terkirim! Terima kasih.");
     return true;
-  } catch(error) {
-    console.error("Error:", error);
-    alert("❌ Gagal mengirim ucapan.");
-    return false;
-  }
+  } catch(error) { alert("❌ Gagal mengirim ucapan."); return false; }
 }
 
 function showGuestbook() {
   const modal = document.getElementById("guestbookModal");
   if(modal) {
     modal.style.display = "flex";
-    let currentName = document.getElementById("namaTampil")?.innerText || "";
-    document.getElementById("guestName").value = currentName;
+    document.getElementById("guestName").value = document.getElementById("namaTampil")?.innerText || "";
     document.getElementById("guestMessage").value = "";
   }
 }
 
 function escapeHtml(str) { 
   if(!str) return ""; 
-  return str.replace(/[&<>]/g, function(m){
-    if(m==='&') return '&amp;'; 
-    if(m==='<') return '&lt;'; 
-    if(m==='>') return '&gt;'; 
-    return m;
-  }); 
+  return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); 
 }
 
-// ========== COUNTDOWN 3D ==========
 function updateCountdown3D() {
   const target = new Date("2026-05-05T09:00:00").getTime();
   const now = new Date().getTime();
-  let diff = target - now;
-  if(diff < 0) diff = 0;
+  let diff = Math.max(0, target - now);
   const hari = Math.floor(diff / (1000*60*60*24));
-  const jam = Math.floor((diff % (86400000)) / (3600000));
+  const jam = Math.floor((diff % 86400000) / 3600000);
   const menit = Math.floor((diff % 3600000) / 60000);
   const detik = Math.floor((diff % 60000) / 1000);
   
-  function updateCard(elementId, newVal) {
-    const cardElem = document.getElementById(elementId);
-    if(!cardElem) return;
-    const front = cardElem.querySelector('.flip-front');
-    const back = cardElem.querySelector('.flip-back');
-    if(!front || !back) return;
-    const currentVal = front.innerText;
-    const newValPadded = String(newVal).padStart(2,'0');
-    if(currentVal != newValPadded && currentVal != '00') {
-      cardElem.classList.add('flip');
-      setTimeout(() => { 
-        front.innerText = newValPadded;
-        back.innerText = newValPadded;
-        cardElem.classList.remove('flip');
-      }, 200);
-    } else {
-      front.innerText = newValPadded;
-      back.innerText = newValPadded;
+  const updateCard = (id, val) => {
+    const card = document.getElementById(id);
+    if(!card) return;
+    const front = card.querySelector('.flip-front');
+    const back = card.querySelector('.flip-back');
+    const newVal = String(val).padStart(2,'0');
+    if(front.innerText !== newVal) {
+      card.classList.add('flip');
+      setTimeout(() => { front.innerText = newVal; back.innerText = newVal; card.classList.remove('flip'); }, 200);
     }
-  }
+  };
   updateCard('cardHari', hari);
   updateCard('cardJam', jam);
   updateCard('cardMenit', menit);
   updateCard('cardDetik', detik);
 }
 
-// PARALLAX
-window.addEventListener("scroll",()=>{
-  let scroll=window.scrollY;
-  let bgElem = document.getElementById("bg");
-  if(bgElem) bgElem.style.transform="translateY("+scroll*0.3+"px)";
+window.addEventListener("scroll", () => {
+  document.getElementById("bg").style.transform = "translateY(" + window.scrollY * 0.3 + "px)";
 });
 
-function getNamaDariURL(){ 
-  return new URLSearchParams(window.location.search).get("to"); 
-}
+function getNamaDariURL() { return new URLSearchParams(window.location.search).get("to"); }
 
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
   createFloatingParticles();
-  let namaURL=getNamaDariURL();
-  if(namaURL) document.getElementById("namaInput").value=decodeURIComponent(namaURL);
+  const namaURL = getNamaDariURL();
+  if(namaURL) document.getElementById("namaInput").value = decodeURIComponent(namaURL);
   setInterval(updateCountdown3D, 1000);
   updateCountdown3D();
 });
 
-function buatLinkKalender(nama){ 
-  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wisuda%20Aan&dates=20260505T020000Z/20260505T050000Z&details=Halo%20"+encodeURIComponent(nama)+"%20saya%20hadir%20di%20wisuda%20Aan&location=Hotel%20Horison%20Ultima%20Ratu%20Serang"; 
+function buatLinkKalender(nama) {
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wisuda%20Aan&dates=20260505T020000Z/20260505T050000Z&details=Halo%20${encodeURIComponent(nama)}%20saya%20hadir&location=Hotel%20Horison%20Ultima%20Ratu%20Serang`;
 }
 
-function bukaUndangan(){
-  let nama=document.getElementById("namaInput").value.trim();
-  if(!nama){alert("Isi nama dulu!");return;}
-  document.getElementById("namaTampil").innerText=nama;
-  let waUrl = `https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya ${nama} hadir di acara wisuda`;
-  document.getElementById("waLink").href=waUrl;
-  document.getElementById("kalenderLink").href=buatLinkKalender(nama);
-  
-  document.getElementById("halaman1").style.display="none";
-  document.getElementById("halaman2").style.display="block";
-  
-  let audio=document.getElementById("musik");
-  audio.currentTime=0; 
-  audio.play().catch(e=>console.log("Audio play error:", e));
-  
-  // SUPER CONFETTI SAAT BUKA UNDANGAN!
+function bukaUndangan() {
+  const nama = document.getElementById("namaInput").value.trim();
+  if(!nama) { alert("Isi nama dulu!"); return; }
+  document.getElementById("namaTampil").innerText = nama;
+  document.getElementById("waLink").href = `https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya ${nama} hadir`;
+  document.getElementById("kalenderLink").href = buatLinkKalender(nama);
+  document.getElementById("halaman1").style.display = "none";
+  document.getElementById("halaman2").style.display = "block";
+  document.getElementById("musik").play().catch(e => console.log);
   superConfetti();
 }
 
-// Event listener
-document.addEventListener("DOMContentLoaded", ()=>{
-  const btnUcap = document.getElementById("btnKirimUcapan");
-  if(btnUcap) btnUcap.addEventListener("click", (e)=>{ 
-    e.preventDefault(); 
-    showGuestbook(); 
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("btnKirimUcapan")?.addEventListener("click", (e) => { e.preventDefault(); showGuestbook(); });
+  document.getElementById("closeGuestbook")?.addEventListener("click", () => { document.getElementById("guestbookModal").style.display = "none"; });
+  document.getElementById("submitUcapanBtn")?.addEventListener("click", async () => {
+    const name = document.getElementById("guestName").value.trim();
+    const msg = document.getElementById("guestMessage").value.trim();
+    if(!name || !msg) { alert("Nama dan ucapan harus diisi!"); return; }
+    if(await saveGuestMessage(name, msg)) document.getElementById("guestMessage").value = "";
   });
-  
-  const closeModal = document.getElementById("closeGuestbook");
-  if(closeModal) closeModal.addEventListener("click", ()=>{ 
-    document.getElementById("guestbookModal").style.display="none";
-  });
-  
-  const submitBtn = document.getElementById("submitUcapanBtn");
-  if(submitBtn){
-    submitBtn.addEventListener("click", async ()=>{
-      let name = document.getElementById("guestName").value.trim();
-      let msg = document.getElementById("guestMessage").value.trim();
-      if(!name || !msg){ 
-        alert("Nama dan ucapan harus diisi!"); 
-        return; 
-      }
-      let success = await saveGuestMessage(name, msg);
-      if(success){
-        document.getElementById("guestMessage").value = "";
-      }
-    });
-  }
-  
-  document.getElementById("guestbookModal").addEventListener("click", (e) => {
-    if(e.target === document.getElementById("guestbookModal")) {
-      document.getElementById("guestbookModal").style.display="none";
-    }
-  });
+  document.getElementById("guestbookModal")?.addEventListener("click", (e) => { if(e.target === document.getElementById("guestbookModal")) document.getElementById("guestbookModal").style.display = "none"; });
+  setTimeout(() => loadGuestMessages(), 1000);
 });
-
-setTimeout(() => {
-  if(document.getElementById("guestListContainer")) {
-    loadGuestMessages();
-  }
-}, 1000);
 </script>
 </body>
 </html>
