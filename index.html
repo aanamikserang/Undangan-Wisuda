@@ -195,6 +195,7 @@ Wassalamu’alaikum Wr. Wb.
 <a href="https://bit.ly/48hwQVU" target="_blank" class="btn maps">📍 Lihat Lokasi</a>
 <a id="kalenderLink" class="btn maps">📅 Tambah ke Kalender</a>
 <a id="waLink" class="btn wa">💬 Konfirmasi Kehadiran</a>
+<a onclick="bukaHalaman3()" class="btn maps">💌 Kirim Ucapan</a>
 
 </div>
 
@@ -291,3 +292,62 @@ document.getElementById("detik").innerText=Math.floor((s%(1000*60))/1000);
 
 </body>
 </html>
+<script>
+
+/* buka halaman 3 */
+function bukaHalaman3(){
+document.getElementById("halaman2").style.display="none";
+document.getElementById("halaman3").style.display="block";
+loadUcapan();
+}
+
+/* kembali */
+function kembali(){
+document.getElementById("halaman3").style.display="none";
+document.getElementById("halaman2").style.display="block";
+}
+
+/* kirim ucapan */
+function kirimUcapan(){
+let nama=document.getElementById("namaUcapan").value;
+let ucapan=document.getElementById("isiUcapan").value;
+
+if(!nama || !ucapan){
+alert("Isi semua kolom!");
+return;
+}
+
+fetch("https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec",{
+method:"POST",
+body:JSON.stringify({
+nama:nama,
+ucapan:ucapan,
+waktu:new Date().toLocaleString()
+})
+});
+
+document.getElementById("isiUcapan").value="";
+loadUcapan();
+}
+
+/* load ucapan */
+function loadUcapan(){
+fetch("https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec")
+.then(res=>res.json())
+.then(data=>{
+let html="";
+
+data.reverse().forEach(row=>{
+html+=`
+<div style="margin-bottom:10px;padding:10px;background:rgba(255,255,255,0.1);border-radius:10px;">
+<b>${row[0]}</b><br>
+<span>${row[1]}</span>
+</div>
+`;
+});
+
+document.getElementById("listUcapan").innerHTML=html;
+});
+}
+
+</script>
