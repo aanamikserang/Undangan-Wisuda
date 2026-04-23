@@ -759,8 +759,7 @@ function bukaUndangan() {
   const nama = document.getElementById("namaInput").value.trim();
   if(!nama) { alert("Isi nama dulu!"); return; }
   document.getElementById("namaTampil").innerText = nama;
-  document.getElementById("waLink").href = `https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya ${nama} hadir`;
-  document.getElementById("kalenderLink").href = buatLinkKalender(nama);
+  document.getElementById("waLink").href = `https://api.whatsapp.com/send?phone=6283878272726&text=🎓 Selamat Kak Aan!%0A%0ASaya ${nama} Insyaallah akan hadir di acara wisudamu. %0A%0ASampai ketemu! 🎉`;
   document.getElementById("halaman1").style.display = "none";
   document.getElementById("halaman2").style.display = "block";
   document.getElementById("musik").play().catch(e => console.log);
