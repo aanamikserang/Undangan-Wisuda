@@ -9,288 +9,285 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#000;color:white;overflow-x:hidden;}
 
+body{
+background:#000;
+color:white;
+overflow-x:hidden;
+}
+
+/* ===== BACKGROUND ===== */
 .bg{
-position:fixed;width:100%;height:120%;
-background:url('background.jpg') center/cover;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:120%;
+background-image:url('background.jpg');
+background-size:cover;
+background-position:40% center;
+background-repeat:no-repeat;
 z-index:-2;
+transition:transform 0.1s linear;
 }
+
+/* TANPA BLUR */
 .overlay{
-position:fixed;width:100%;height:100%;
-background:rgba(0,0,0,0.4);z-index:-1;
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.3);
+z-index:-1;
 }
 
+/* ===== CENTER ===== */
 .wrapper{
-display:flex;justify-content:center;align-items:center;
-min-height:100vh;padding:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
 }
 
+/* ===== CARD ===== */
 .card{
-width:100%;max-width:420px;padding:25px;
-border-radius:25px;text-align:center;
+width:100%;
+max-width:420px;
+padding:30px 20px;
+border-radius:25px;
+text-align:center;
 background:rgba(0,0,0,0.35);
 border:1px solid rgba(255,255,255,0.2);
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+margin:auto;
+}
+
+.toga{
+width:70px;
+margin-bottom:10px;
+animation:float 3s infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
 }
 
 input{
-width:100%;padding:12px;border-radius:30px;
-background:transparent;color:white;
+width:100%;
+padding:14px;
+border-radius:30px;
 border:2px solid rgba(255,255,255,0.5);
-margin-top:10px;
+background:transparent;
+color:white;
+text-align:center;
+margin-top:15px;
 }
 
-button{
-width:100%;padding:12px;border-radius:30px;
-margin-top:10px;border:none;
-background:white;color:black;cursor:pointer;
+button,.btn{
+display:block;
+width:100%;
+margin-top:15px;
+padding:14px;
+border-radius:30px;
+border:none;
+font-weight:600;
+cursor:pointer;
+text-decoration:none;
 }
 
-.btn{display:block;margin-top:10px;padding:12px;border-radius:30px;}
+button{background:white;color:black;}
+.maps{background:white;color:black;}
 .wa{background:#25D366;color:white;}
 
-#halaman2,#halaman3{display:none;}
+#halaman2{display:none;}
 
-/* UCAPAN */
-.ucapan-box{
-max-height:300px;overflow:auto;margin-top:10px;text-align:left;
+/* countdown */
+.flip-container{display:flex;gap:8px;margin-top:15px;}
+.flip-box{flex:1;text-align:center;}
+.label{font-size:11px;}
+.flip{
+background:rgba(255,255,255,0.15);
+border-radius:10px;
+padding:10px 0;
 }
 
-.ucapan-item{
-background:rgba(255,255,255,0.1);
-padding:10px;border-radius:10px;margin-bottom:10px;
-position:relative;
-}
-
-.reply{
-margin-left:15px;margin-top:5px;font-size:12px;
-opacity:0.9;
-}
-
-.like-btn, .reply-btn{
-font-size:12px;color:#00ffff;cursor:pointer;margin-top:5px;
-}
-
-.top-comment{
-border:1px solid gold;
-box-shadow:0 0 10px gold;
-}
-
-.like-anim{
-position:absolute;
-left:50%;top:50%;
-transform:translate(-50%,-50%);
-font-size:30px;
-animation:pop .6s ease;
-}
-@keyframes pop{
-0%{transform:scale(0);opacity:0;}
-50%{transform:scale(1.5);opacity:1;}
-100%{transform:scale(1);opacity:0;}
-}
-
-.notif{
+/* confetti */
+.confetti{
 position:fixed;
-top:20px;left:50%;
-transform:translateX(-50%);
-background:#00ffff;color:black;
-padding:10px 20px;border-radius:20px;
-z-index:999;
+width:8px;
+height:8px;
+top:-10px;
+animation:fall linear infinite;
+z-index:0;
+}
+
+@keyframes fall{to{transform:translateY(100vh);}}
+
+/* mobile */
+@media(max-width:600px){
+.card{padding:25px 15px;}
+h1{font-size:20px;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
+<div class="bg" id="bg"></div>
 <div class="overlay"></div>
 
 <div class="wrapper">
 
 <!-- HALAMAN 1 -->
 <div class="card" id="halaman1">
-<h2>Undangan Wisuda</h2>
-<input id="namaInput" placeholder="Nama kamu">
-<button onclick="bukaUndangan()">Buka</button>
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
+
+<h1>Undangan Wisuda</h1>
+<h3>Aan, A.Md.Kom.</h3>
+
+<p>Masukan nama kamu untuk membuka undangan</p>
+
+<input type="text" id="namaInput" placeholder="Nama kamu..." autofocus>
+<button onclick="bukaUndangan()">Buka Undangan</button>
 </div>
 
 <!-- HALAMAN 2 -->
 <div class="card" id="halaman2">
-<h2>Hai <span id="namaTampil"></span></h2>
-<p>Datang ya ke wisuda saya 🎓</p>
-<button onclick="keUcapan()">💌 Kirim Ucapan</button>
-<a id="waLink" class="btn wa">Konfirmasi Kehadiran</a>
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
+
+<!-- SALAM -->
+<p style="margin-bottom:10px; font-size:16px;">
+Assalamu'alaikum Wr. Wb.
+</p>
+
+<h1>Hai <span id="namaTampil"></span> 👋</h1>
+
+<p style="margin-top:10px;">
+Dengan penuh rasa syukur,<br>
+saya mengundang kamu hadir di wisuda saya
+</p>
+
+<div style="margin-top:10px; line-height:1.6;">
+🎓 <b>Wisuda Aan, A.Md.Kom.</b><br>
+📅 Selasa, 5 Mei 2026<br>
+⏰ 09.00 WIB<br>
+📍 Hotel Horison Ultima Ratu Serang
 </div>
 
-<!-- HALAMAN 3 -->
-<div class="card" id="halaman3">
-<h3>💬 Ucapan & Doa</h3>
+<!-- AJAKAN DI AKHIR -->
+<p style="margin-top:15px; font-style:italic;">
+Rayakan momen spesial ini bersamaku!<br>
+Kehadiranmu sangat berarti.
+</p>
 
-<input id="ucapanInput" placeholder="Tulis ucapan...">
-<button onclick="kirimUcapan()">Kirim</button>
+<!-- PENUTUP -->
+<p style="margin-top:20px;">
+Wassalamu’alaikum Wr. Wb.
+</p>
 
-<div id="listUcapan" class="ucapan-box"></div>
+<div class="flip-container">
+<div class="flip-box"><div class="label">Hari</div><div class="flip" id="hari">00</div></div>
+<div class="flip-box"><div class="label">Jam</div><div class="flip" id="jam">00</div></div>
+<div class="flip-box"><div class="label">Menit</div><div class="flip" id="menit">00</div></div>
+<div class="flip-box"><div class="label">Detik</div><div class="flip" id="detik">00</div></div>
+</div>
 
-<button onclick="kembali()">⬅ Kembali</button>
+<a href="https://bit.ly/48hwQVU" target="_blank" class="btn maps">📍 Lihat Lokasi</a>
+<a id="kalenderLink" class="btn maps">📅 Tambah ke Kalender</a>
+<a id="waLink" class="btn wa">💬 Konfirmasi Kehadiran</a>
+
 </div>
 
 </div>
 
-<audio id="notifSound">
-<source src="https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3">
+<audio id="musik" loop>
+<source src="musik.mp3" type="audio/mp3">
 </audio>
 
-<!-- FIREBASE -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {
-getFirestore, collection, addDoc, onSnapshot,
-updateDoc, doc, increment
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+<script>
+/* PARALLAX */
+window.addEventListener("scroll",()=>{
+let scroll=window.scrollY;
+document.getElementById("bg").style.transform="translateY("+scroll*0.3+"px)";
+});
 
-/* ===== CONFIG (ISI PUNYA KAMU) ===== */
-const firebaseConfig = {
-apiKey: "ISI_APIKEY",
-authDomain: "ISI_DOMAIN",
-projectId: "ISI_PROJECT_ID",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-let namaUser="";
-let lastCount=0;
-
-/* NAVIGASI */
-window.bukaUndangan=()=>{
-namaUser=document.getElementById("namaInput").value;
-if(!namaUser)return alert("Isi nama dulu");
-document.getElementById("namaTampil").innerText=namaUser;
-halaman1.style.display="none";
-halaman2.style.display="block";
-};
-
-window.keUcapan=()=>{
-halaman2.style.display="none";
-halaman3.style.display="block";
-};
-
-window.kembali=()=>{
-halaman3.style.display="none";
-halaman2.style.display="block";
-};
-
-/* AVATAR */
-function avatar(n){
-return "https://api.dicebear.com/7.x/initials/svg?seed="+encodeURIComponent(n);
+/* AMBIL NAMA DARI URL */
+function getNamaDariURL(){
+let params=new URLSearchParams(window.location.search);
+return params.get("to");
 }
 
-/* KIRIM */
-window.kirimUcapan=async()=>{
-let text=ucapanInput.value;
-if(!text)return;
-
-await addDoc(collection(db,"ucapan"),{
-nama:namaUser,
-ucapan:text,
-like:0,
-reply:[],
-created:Date.now()
-});
-
-ucapanInput.value="";
-};
-
-/* LIKE */
-window.like=async(id)=>{
-await updateDoc(doc(db,"ucapan",id),{
-like:increment(1)
-});
-};
-
-/* REPLY */
-window.balas=async(id)=>{
-let isi=prompt("Balas:");
-if(!isi)return;
-
-let ref=doc(db,"ucapan",id);
-await updateDoc(ref,{
-reply: [...(window.cache[id]?.reply||[]), {nama:namaUser,text:isi}]
-});
-};
-
-/* DOUBLE TAP */
-window.doubleTapLike=(el,id)=>{
-let now=Date.now();
-let last=el.dataset.last||0;
-
-if(now-last<300){
-like(id);
-let anim=document.createElement("div");
-anim.className="like-anim";
-anim.innerText="❤️";
-el.appendChild(anim);
-setTimeout(()=>anim.remove(),600);
+/* ISI INPUT SAJA (TIDAK AUTO BUKA) */
+window.addEventListener("load",()=>{
+let namaURL=getNamaDariURL();
+if(namaURL){
+document.getElementById("namaInput").value=decodeURIComponent(namaURL);
 }
-el.dataset.last=now;
-};
+});
 
-/* NOTIF */
-function notif(){
-let div=document.createElement("div");
-div.className="notif";
-div.innerText="Ucapan baru!";
-document.body.appendChild(div);
-notifSound.play();
-setTimeout(()=>div.remove(),2000);
+/* LINK KALENDER */
+function buatLinkKalender(nama){
+return "https://calendar.google.com/calendar/render?action=TEMPLATE"
++"&text=Wisuda Aan"
++"&dates=20260505T020000Z/20260505T050000Z"
++"&details=Halo "+nama
++"&location=Serang";
 }
 
-/* REALTIME */
-window.cache={};
+/* BUKA UNDANGAN */
+function bukaUndangan(){
+let nama=document.getElementById("namaInput").value.trim();
+if(!nama){alert("Isi nama dulu!");return;}
 
-onSnapshot(collection(db,"ucapan"),(snap)=>{
-let data=[];
-snap.forEach(doc=>{
-let d=doc.data();
-d.id=doc.id;
-data.push(d);
-window.cache[doc.id]=d;
+document.getElementById("namaTampil").innerText=nama;
+
+document.getElementById("waLink").href=
+"https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya "+nama+" hadir";
+
+document.getElementById("kalenderLink").href=buatLinkKalender(nama);
+
+/* kirim ke Google Sheets */
+fetch("https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec",{
+method:"POST",
+body:JSON.stringify({
+nama:nama,
+waktu:new Date().toLocaleString()
+})
 });
 
-data.sort((a,b)=>b.created-a.created);
+/* pindah halaman */
+document.getElementById("halaman1").style.display="none";
+document.getElementById("halaman2").style.display="block";
 
-let maxLike=Math.max(...data.map(x=>x.like||0));
+/* MUSIK (PASTI JALAN) */
+let audio=document.getElementById("musik");
+audio.currentTime=0;
+audio.play();
 
-listUcapan.innerHTML="";
-
-data.forEach(item=>{
-let div=document.createElement("div");
-div.className="ucapan-item "+((item.like===maxLike && maxLike>0)?"top-comment":"");
-
-div.innerHTML=`
-<div onclick="doubleTapLike(this,'${item.id}')">
-<img src="${avatar(item.nama)}" width="30">
-<b>${item.nama}</b><br>${item.ucapan}
-</div>
-
-<div class="like-btn" onclick="like('${item.id}')">👍 ${item.like||0}</div>
-<div class="reply-btn" onclick="balas('${item.id}')">💬 Balas</div>
-`;
-
-(item.reply||[]).forEach(r=>{
-div.innerHTML+=`<div class="reply"><b>${r.nama}:</b> ${r.text}</div>`;
-});
-
-listUcapan.appendChild(div);
-});
-
-/* notif */
-if(data.length>lastCount && lastCount!==0){
-notif();
+/* confetti */
+for(let i=0;i<40;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"%";
+c.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)";
+c.style.animationDuration=(2+Math.random()*3)+"s";
+document.body.appendChild(c);
 }
-lastCount=data.length;
+}
 
-});
+/* countdown */
+let target=new Date("2026-05-05T09:00:00").getTime();
+
+setInterval(()=>{
+let now=new Date().getTime();
+let s=target-now;
+
+document.getElementById("hari").innerText=Math.floor(s/(1000*60*60*24));
+document.getElementById("jam").innerText=Math.floor((s%(1000*60*60*24))/(1000*60*60));
+document.getElementById("menit").innerText=Math.floor((s%(1000*60*60))/(1000*60));
+document.getElementById("detik").innerText=Math.floor((s%(1000*60))/1000);
+},1000);
 </script>
 
 </body>
