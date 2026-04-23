@@ -16,7 +16,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* BACKGROUND */
+/* ===== BACKGROUND ===== */
 .bg{
 position:fixed;
 top:0;
@@ -26,18 +26,20 @@ height:120%;
 background-image:url('background.jpg');
 background-size:cover;
 background-position:40% center;
+background-repeat:no-repeat;
 z-index:-2;
+transition:transform 0.1s linear;
 }
 
 .overlay{
 position:fixed;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.4);
+background:rgba(0,0,0,0.3);
 z-index:-1;
 }
 
-/* CENTER */
+/* ===== CENTER ===== */
 .wrapper{
 display:flex;
 justify-content:center;
@@ -46,17 +48,17 @@ min-height:100vh;
 padding:20px;
 }
 
-/* CARD */
+/* ===== CARD ===== */
 .card{
 width:100%;
 max-width:420px;
 padding:30px 20px;
 border-radius:25px;
 text-align:center;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(12px);
+background:rgba(0,0,0,0.35);
 border:1px solid rgba(255,255,255,0.2);
-box-shadow:0 0 25px rgba(0,255,255,0.2);
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+margin:auto;
 }
 
 .toga{
@@ -66,10 +68,10 @@ animation:float 3s infinite;
 }
 
 @keyframes float{
+0%,100%{transform:translateY(0);}
 50%{transform:translateY(-10px);}
 }
 
-/* INPUT */
 input{
 width:100%;
 padding:14px;
@@ -81,7 +83,6 @@ text-align:center;
 margin-top:15px;
 }
 
-/* BUTTON */
 button,.btn{
 display:block;
 width:100%;
@@ -91,6 +92,7 @@ border-radius:30px;
 border:none;
 font-weight:600;
 cursor:pointer;
+text-decoration:none;
 }
 
 button{background:white;color:black;}
@@ -99,7 +101,7 @@ button{background:white;color:black;}
 
 #halaman2{display:none;}
 
-/* COUNTDOWN 3D */
+/* ===== COUNTDOWN 3D ===== */
 .flip-container{display:flex;gap:8px;margin-top:15px;}
 .flip-box{flex:1;text-align:center;}
 .label{font-size:11px;}
@@ -112,52 +114,63 @@ box-shadow:0 5px 20px rgba(0,0,0,0.6);
 font-weight:bold;
 }
 
-/* UCAPAN */
+/* ===== UCAPAN ===== */
 .ucapan-box{
 margin-top:15px;
-max-height:250px;
+max-height:220px;
 overflow:auto;
-padding:10px;
-border-radius:15px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(10px);
-box-shadow:0 0 20px rgba(0,255,255,0.2);
+text-align:left;
 }
 
 .ucapan-item{
 display:flex;
 gap:10px;
-align-items:flex-start;
 background:rgba(255,255,255,0.1);
 padding:10px;
-border-radius:12px;
-margin-bottom:10px;
-animation:fadeIn .5s;
+border-radius:10px;
+margin-bottom:8px;
+animation:fadeIn .4s;
 }
 
 .avatar{
-width:40px;
-height:40px;
+width:35px;
+height:35px;
 border-radius:50%;
-box-shadow:0 0 10px cyan;
+box-shadow:0 0 8px cyan;
 }
 
 .ucapan-content{
 flex:1;
 font-size:13px;
-text-align:left;
 }
 
 .like-btn{
-margin-top:5px;
 font-size:12px;
-cursor:pointer;
 color:#00ffff;
+cursor:pointer;
+margin-top:5px;
 }
 
 @keyframes fadeIn{
-from{opacity:0;transform:translateY(10px);}
+from{opacity:0;transform:translateY(5px);}
 to{opacity:1;transform:translateY(0);}
+}
+
+/* ===== CONFETTI ===== */
+.confetti{
+position:fixed;
+width:8px;
+height:8px;
+top:-10px;
+animation:fall linear infinite;
+z-index:0;
+}
+@keyframes fall{to{transform:translateY(100vh);}}
+
+/* mobile */
+@media(max-width:600px){
+.card{padding:25px 15px;}
+h1{font-size:20px;}
 }
 </style>
 </head>
@@ -172,11 +185,13 @@ to{opacity:1;transform:translateY(0);}
 <!-- HALAMAN 1 -->
 <div class="card" id="halaman1">
 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
+
 <h1>Undangan Wisuda</h1>
 <h3>Aan, A.Md.Kom.</h3>
 
-<p>Masukan nama kamu</p>
-<input type="text" id="namaInput" placeholder="Nama kamu...">
+<p>Masukan nama kamu untuk membuka undangan</p>
+
+<input type="text" id="namaInput" placeholder="Nama kamu..." autofocus>
 <button onclick="bukaUndangan()">Buka Undangan</button>
 </div>
 
@@ -184,20 +199,29 @@ to{opacity:1;transform:translateY(0);}
 <div class="card" id="halaman2">
 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
 
+<p>Assalamu'alaikum Wr. Wb.</p>
+
 <h1>Hai <span id="namaTampil"></span> 👋</h1>
 
-<p>Datang ya ke wisuda saya</p>
+<p>Dengan penuh rasa syukur saya mengundang kamu hadir di wisuda saya</p>
+
+<div style="margin-top:10px;">
+🎓 Wisuda Aan, A.Md.Kom.<br>
+📅 5 Mei 2026<br>
+⏰ 09.00 WIB<br>
+📍 Serang
+</div>
 
 <!-- COUNTDOWN -->
 <div class="flip-container">
-<div class="flip-box"><div class="label">Hari</div><div class="flip" id="hari">0</div></div>
-<div class="flip-box"><div class="label">Jam</div><div class="flip" id="jam">0</div></div>
-<div class="flip-box"><div class="label">Menit</div><div class="flip" id="menit">0</div></div>
-<div class="flip-box"><div class="label">Detik</div><div class="flip" id="detik">0</div></div>
+<div class="flip-box"><div class="label">Hari</div><div class="flip" id="hari">00</div></div>
+<div class="flip-box"><div class="label">Jam</div><div class="flip" id="jam">00</div></div>
+<div class="flip-box"><div class="label">Menit</div><div class="flip" id="menit">00</div></div>
+<div class="flip-box"><div class="label">Detik</div><div class="flip" id="detik">00</div></div>
 </div>
 
 <!-- UCAPAN -->
-<input type="text" id="ucapanInput" placeholder="Tulis ucapan...">
+<input type="text" id="ucapanInput" placeholder="Tulis ucapan kamu...">
 <button onclick="kirimUcapan()">💌 Kirim Ucapan</button>
 
 <div id="listUcapan" class="ucapan-box"></div>
@@ -207,30 +231,57 @@ to{opacity:1;transform:translateY(0);}
 </div>
 </div>
 
+<audio id="musik" loop>
+<source src="musik.mp3" type="audio/mp3">
+</audio>
+
 <script>
 const URL_SCRIPT="https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec";
 
+/* PARALLAX */
+window.addEventListener("scroll",()=>{
+let scroll=window.scrollY;
+document.getElementById("bg").style.transform="translateY("+scroll*0.3+"px)";
+});
+
 /* buka */
 function bukaUndangan(){
-let nama=document.getElementById("namaInput").value;
-if(!nama){alert("Isi nama dulu");return;}
+let nama=document.getElementById("namaInput").value.trim();
+if(!nama){alert("Isi nama dulu!");return;}
 
 document.getElementById("namaTampil").innerText=nama;
+
+document.getElementById("waLink").href=
+"https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya "+nama+" hadir";
+
 document.getElementById("halaman1").style.display="none";
 document.getElementById("halaman2").style.display="block";
+
+document.getElementById("musik").play();
+
+/* confetti */
+for(let i=0;i<40;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"%";
+c.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)";
+c.style.animationDuration=(2+Math.random()*3)+"s";
+document.body.appendChild(c);
+}
 
 ambilUcapan();
 }
 
 /* avatar */
 function avatar(n){
-return "https://api.dicebear.com/7.x/initials/svg?seed="+n;
+return "https://api.dicebear.com/7.x/initials/svg?seed="+encodeURIComponent(n);
 }
 
-/* kirim */
+/* kirim ucapan */
 function kirimUcapan(){
 let nama=document.getElementById("namaTampil").innerText;
-let ucapan=document.getElementById("ucapanInput").value;
+let ucapan=document.getElementById("ucapanInput").value.trim();
+if(!ucapan){alert("Isi ucapan dulu!");return;}
 
 fetch(URL_SCRIPT,{
 method:"POST",
@@ -242,7 +293,7 @@ ambilUcapan();
 }
 
 /* like */
-function like(i){
+function likeUcapan(i){
 fetch(URL_SCRIPT,{
 method:"POST",
 body:JSON.stringify({likeIndex:i})
@@ -252,18 +303,17 @@ body:JSON.stringify({likeIndex:i})
 /* ambil */
 function ambilUcapan(){
 fetch(URL_SCRIPT)
-.then(r=>r.json())
-.then(d=>{
+.then(res=>res.json())
+.then(data=>{
 let box=document.getElementById("listUcapan");
 box.innerHTML="";
-
-d.reverse().forEach((x,i)=>{
+data.reverse().forEach((x,i)=>{
 box.innerHTML+=`
 <div class="ucapan-item">
 <img src="${avatar(x.nama)}" class="avatar">
 <div class="ucapan-content">
 <b>${x.nama}</b><br>${x.ucapan}
-<div class="like-btn" onclick="like(${d.length-1-i})">
+<div class="like-btn" onclick="likeUcapan(${data.length-1-i})">
 👍 ${x.like||0}
 </div>
 </div>
@@ -273,7 +323,11 @@ box.innerHTML+=`
 }
 
 /* realtime */
-setInterval(ambilUcapan,5000);
+setInterval(()=>{
+if(document.getElementById("halaman2").style.display==="block"){
+ambilUcapan();
+}
+},5000);
 
 /* countdown */
 let target=new Date("2026-05-05T09:00:00").getTime();
