@@ -16,18 +16,22 @@ color:white;
 overflow-x:hidden;
 }
 
-/* BACKGROUND */
+/* ===== BACKGROUND ===== */
 .bg{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:120%;
-background:url('background.jpg') center/cover no-repeat;
+background-image:url('background.jpg');
+background-size:cover;
+background-position:40% center;
+background-repeat:no-repeat;
 z-index:-2;
 transition:transform 0.1s linear;
 }
 
+/* TANPA BLUR */
 .overlay{
 position:fixed;
 width:100%;
@@ -36,7 +40,7 @@ background:rgba(0,0,0,0.3);
 z-index:-1;
 }
 
-/* CENTER */
+/* ===== CENTER ===== */
 .wrapper{
 display:flex;
 justify-content:center;
@@ -45,7 +49,7 @@ min-height:100vh;
 padding:20px;
 }
 
-/* CARD */
+/* ===== CARD ===== */
 .card{
 width:100%;
 max-width:420px;
@@ -55,6 +59,7 @@ text-align:center;
 background:rgba(0,0,0,0.35);
 border:1px solid rgba(255,255,255,0.2);
 box-shadow:0 10px 30px rgba(0,0,0,0.5);
+margin:auto;
 }
 
 .toga{
@@ -62,19 +67,21 @@ width:70px;
 margin-bottom:10px;
 animation:float 3s infinite;
 }
+
 @keyframes float{
 0%,100%{transform:translateY(0);}
 50%{transform:translateY(-10px);}
 }
 
-input,textarea{
+input{
 width:100%;
 padding:14px;
-border-radius:20px;
+border-radius:30px;
 border:2px solid rgba(255,255,255,0.5);
 background:transparent;
 color:white;
-margin-top:10px;
+text-align:center;
+margin-top:15px;
 }
 
 button,.btn{
@@ -93,14 +100,19 @@ button{background:white;color:black;}
 .maps{background:white;color:black;}
 .wa{background:#25D366;color:white;}
 
-#halaman2,#halaman3{display:none;}
+#halaman2{display:none;}
 
-/* COUNTDOWN */
+/* countdown */
 .flip-container{display:flex;gap:8px;margin-top:15px;}
 .flip-box{flex:1;text-align:center;}
-.flip{background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 0;}
+.label{font-size:11px;}
+.flip{
+background:rgba(255,255,255,0.15);
+border-radius:10px;
+padding:10px 0;
+}
 
-/* CONFETTI */
+/* confetti */
 .confetti{
 position:fixed;
 width:8px;
@@ -109,37 +121,13 @@ top:-10px;
 animation:fall linear infinite;
 z-index:0;
 }
+
 @keyframes fall{to{transform:translateY(100vh);}}
 
-/* UCAPAN PREMIUM */
-.ucapan-list{
-margin-top:20px;
-max-height:300px;
-overflow-y:auto;
-}
-.ucapan-card{
-display:flex;
-gap:10px;
-padding:12px;
-margin-bottom:10px;
-border-radius:15px;
-background:rgba(255,255,255,0.08);
-animation:fadeUp 0.5s ease;
-}
-.avatar{
-width:40px;height:40px;border-radius:50%;
-background:linear-gradient(135deg,#6a11cb,#2575fc);
-display:flex;align-items:center;justify-content:center;
-font-weight:bold;
-}
-.ucapan-content{flex:1;text-align:left;}
-.ucapan-nama{font-weight:600;font-size:14px;}
-.ucapan-text{font-size:13px;margin-top:3px;}
-.ucapan-waktu{font-size:11px;opacity:0.6;}
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;}
+/* mobile */
+@media(max-width:600px){
+.card{padding:25px 15px;}
+h1{font-size:20px;}
 }
 </style>
 </head>
@@ -154,168 +142,142 @@ to{opacity:1;}
 <!-- HALAMAN 1 -->
 <div class="card" id="halaman1">
 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
+
 <h1>Undangan Wisuda</h1>
 <h3>Aan, A.Md.Kom.</h3>
-<p>Masukan nama kamu</p>
-<input id="namaInput" placeholder="Nama kamu...">
+
+<p>Masukan nama kamu untuk membuka undangan</p>
+
+<input type="text" id="namaInput" placeholder="Nama kamu..." autofocus>
 <button onclick="bukaUndangan()">Buka Undangan</button>
 </div>
 
 <!-- HALAMAN 2 -->
-<div class="card" id="halaman2">
-
-<p>اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</p>
+<p style="margin-bottom:10px; font-size:16px;">
+Assalamu'alaikum Wr. Wb.
+</p>
 
 <h1>Hai <span id="namaTampil"></span> 👋</h1>
 
-<p>Dengan penuh rasa syukur,<br>saya mengundang kamu hadir di wisuda saya</p>
+<p style="margin-top:10px;">
+Dengan penuh rasa syukur,<br>
+saya mengundang kamu hadir di wisuda saya
+</p>
 
-<div style="margin-top:10px;line-height:1.6;">
-🎓 <b>Wisuda Aan</b><br>
-📅 5 Mei 2026<br>
+<div style="margin-top:10px; line-height:1.6;">
+🎓 <b>Wisuda Aan, A.Md.Kom.</b><br>
+📅 Selasa, 5 Mei 2026<br>
 ⏰ 09.00 WIB<br>
 📍 Hotel Horison Ultima Ratu Serang
 </div>
 
-<p style="margin-top:15px;font-style:italic;">
-Rayakan momen spesial ini bersamaku!<br>Kehadiranmu sangat berarti
+<!-- AJAKAN DI AKHIR -->
+<p style="margin-top:15px; font-style:italic;">
+Rayakan momen spesial ini bersamaku!<br>
+Kehadiranmu sangat berarti
 </p>
 
-<p style="margin-top:15px;">Wassalamu’alaikum Wr. Wb.</p>
-
 <div class="flip-container">
-<div class="flip-box"><div id="hari">00</div></div>
-<div class="flip-box"><div id="jam">00</div></div>
-<div class="flip-box"><div id="menit">00</div></div>
-<div class="flip-box"><div id="detik">00</div></div>
+<div class="flip-box"><div class="label">Hari</div><div class="flip" id="hari">00</div></div>
+<div class="flip-box"><div class="label">Jam</div><div class="flip" id="jam">00</div></div>
+<div class="flip-box"><div class="label">Menit</div><div class="flip" id="menit">00</div></div>
+<div class="flip-box"><div class="label">Detik</div><div class="flip" id="detik">00</div></div>
 </div>
 
-<a onclick="bukaHalaman3()" class="btn maps">💌 Kirim Ucapan</a>
-<a id="waLink" class="btn wa">💬 Konfirmasi</a>
-
-</div>
-
-<!-- HALAMAN 3 -->
-<div class="card" id="halaman3">
-
-<h2>💌 Ucapan</h2>
-
-<input id="namaUcapan" placeholder="Nama">
-<textarea id="isiUcapan" placeholder="Tulis ucapan..."></textarea>
-
-<button onclick="kirimUcapan()">Kirim</button>
-
-<div id="listUcapan" class="ucapan-list"></div>
-
-<button onclick="kembali()" class="btn maps">⬅ Kembali</button>
+<a href="https://bit.ly/48hwQVU" target="_blank" class="btn maps">📍 Lihat Lokasi</a>
+<a id="kalenderLink" class="btn maps">📅 Tambah ke Kalender</a>
+<a id="waLink" class="btn wa">💬 Konfirmasi Kehadiran</a>
 
 </div>
 
 </div>
 
 <audio id="musik" loop>
-<source src="musik.mp3">
+<source src="musik.mp3" type="audio/mp3">
 </audio>
 
 <script>
-const URL="https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec";
-
-/* parallax */
+/* PARALLAX */
 window.addEventListener("scroll",()=>{
-bg.style.transform="translateY("+window.scrollY*0.3+"px)";
+let scroll=window.scrollY;
+document.getElementById("bg").style.transform="translateY("+scroll*0.3+"px)";
 });
 
-/* auto isi nama */
-window.onload=()=>{
-let p=new URLSearchParams(location.search);
-let n=p.get("to");
-if(n) document.getElementById("namaInput").value=decodeURIComponent(n);
-};
+/* AMBIL NAMA DARI URL */
+function getNamaDariURL(){
+let params=new URLSearchParams(window.location.search);
+return params.get("to");
+}
 
-/* buka */
+/* ISI INPUT SAJA (TIDAK AUTO BUKA) */
+window.addEventListener("load",()=>{
+let namaURL=getNamaDariURL();
+if(namaURL){
+document.getElementById("namaInput").value=decodeURIComponent(namaURL);
+}
+});
+
+/* LINK KALENDER */
+function buatLinkKalender(nama){
+return "https://calendar.google.com/calendar/render?action=TEMPLATE"
++"&text=Wisuda Aan"
++"&dates=20260505T020000Z/20260505T050000Z"
++"&details=Halo "+nama
++"&location=Serang";
+}
+
+/* BUKA UNDANGAN */
 function bukaUndangan(){
-let nama=namaInput.value.trim();
-if(!nama) return alert("Isi nama!");
+let nama=document.getElementById("namaInput").value.trim();
+if(!nama){alert("Isi nama dulu!");return;}
 
-namaTampil.innerText=nama;
+document.getElementById("namaTampil").innerText=nama;
 
-waLink.href="https://api.whatsapp.com/send?phone=6283878272726&text=Halo saya "+nama;
+document.getElementById("waLink").href=
+"https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya "+nama+" hadir";
 
-fetch(URL,{
+document.getElementById("kalenderLink").href=buatLinkKalender(nama);
+
+/* kirim ke Google Sheets */
+fetch("https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec",{
 method:"POST",
-body:JSON.stringify({nama:nama,waktu:new Date().toLocaleString()})
+body:JSON.stringify({
+nama:nama,
+waktu:new Date().toLocaleString()
+})
 });
 
-halaman1.style.display="none";
-halaman2.style.display="block";
+/* pindah halaman */
+document.getElementById("halaman1").style.display="none";
+document.getElementById("halaman2").style.display="block";
 
-musik.play();
+/* MUSIK (PASTI JALAN) */
+let audio=document.getElementById("musik");
+audio.currentTime=0;
+audio.play();
 
 /* confetti */
-for(let i=0;i<30;i++){
+for(let i=0;i<40;i++){
 let c=document.createElement("div");
 c.className="confetti";
 c.style.left=Math.random()*100+"%";
-c.style.background="hsl("+Math.random()*360+",100%,50%)";
+c.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)";
 c.style.animationDuration=(2+Math.random()*3)+"s";
 document.body.appendChild(c);
 }
 }
 
-/* halaman 3 */
-function bukaHalaman3(){
-halaman2.style.display="none";
-halaman3.style.display="block";
-loadUcapan();
-}
-
-function kembali(){
-halaman3.style.display="none";
-halaman2.style.display="block";
-}
-
-/* kirim ucapan */
-function kirimUcapan(){
-let n=namaUcapan.value;
-let u=isiUcapan.value;
-if(!n||!u)return alert("Isi semua!");
-
-fetch(URL,{
-method:"POST",
-body:JSON.stringify({nama:n,ucapan:u,waktu:new Date().toLocaleString()})
-});
-
-isiUcapan.value="";
-loadUcapan();
-}
-
-/* load ucapan */
-function loadUcapan(){
-fetch(URL).then(r=>r.json()).then(data=>{
-let html="";
-data.reverse().forEach(r=>{
-html+=`
-<div class="ucapan-card">
-<div class="avatar">${r[0][0]}</div>
-<div class="ucapan-content">
-<div class="ucapan-nama">${r[0]}</div>
-<div class="ucapan-text">${r[1]}</div>
-<div class="ucapan-waktu">${r[2]}</div>
-</div>
-</div>`;
-});
-listUcapan.innerHTML=html;
-});
-}
-
 /* countdown */
-let t=new Date("2026-05-05T09:00:00").getTime();
+let target=new Date("2026-05-05T09:00:00").getTime();
+
 setInterval(()=>{
-let s=t-Date.now();
-hari.innerText=Math.floor(s/86400000);
-jam.innerText=Math.floor(s%86400000/3600000);
-menit.innerText=Math.floor(s%3600000/60000);
-detik.innerText=Math.floor(s%60000/1000);
+let now=new Date().getTime();
+let s=target-now;
+
+document.getElementById("hari").innerText=Math.floor(s/(1000*60*60*24));
+document.getElementById("jam").innerText=Math.floor((s%(1000*60*60*24))/(1000*60*60));
+document.getElementById("menit").innerText=Math.floor((s%(1000*60*60))/(1000*60));
+document.getElementById("detik").innerText=Math.floor((s%(1000*60))/1000);
 },1000);
 </script>
 
