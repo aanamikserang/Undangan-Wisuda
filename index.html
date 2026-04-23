@@ -9,7 +9,6 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-
 body{background:#000;color:white;overflow-x:hidden;}
 
 /* BACKGROUND */
@@ -18,7 +17,6 @@ position:fixed;top:0;left:0;width:100%;height:120%;
 background:url('background.jpg') no-repeat center/cover;
 z-index:-2;transition:transform 0.1s linear;
 }
-
 .overlay{
 position:fixed;width:100%;height:100%;
 background:rgba(0,0,0,0.3);z-index:-1;
@@ -37,23 +35,20 @@ border-radius:25px;text-align:center;
 background:rgba(0,0,0,0.35);
 border:1px solid rgba(255,255,255,0.2);
 box-shadow:0 10px 30px rgba(0,0,0,0.5);
-margin:auto;
 }
 
-.toga{
-width:70px;margin-bottom:10px;
-animation:float 3s infinite;
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
-}
-
+/* INPUT CENTER */
 input,textarea{
-width:100%;padding:14px;border-radius:20px;
+width:80%;
+max-width:280px;
+margin:12px auto;
+display:block;
+padding:14px;
+border-radius:20px;
 border:2px solid rgba(255,255,255,0.5);
-background:transparent;color:white;margin-top:10px;
+background:transparent;
+color:white;
+text-align:center;
 }
 
 button,.btn{
@@ -61,63 +56,58 @@ display:block;width:100%;margin-top:15px;
 padding:14px;border-radius:30px;border:none;
 font-weight:600;cursor:pointer;text-decoration:none;
 }
-
 button{background:white;color:black;}
 .maps{background:white;color:black;}
 .wa{background:#25D366;color:white;}
 
 #halaman2,#halaman3{display:none;}
 
-/* COUNTDOWN */
+/* COUNTDOWN 3D */
 .flip-container{display:flex;gap:8px;margin-top:15px;}
 .flip-box{flex:1;text-align:center;}
-.flip{background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 0;}
-
-/* CONFETTI */
-.confetti{
-position:fixed;width:8px;height:8px;top:-10px;
-animation:fall linear infinite;z-index:0;
+.flip{
+background:rgba(255,255,255,0.15);
+border-radius:10px;
+padding:12px 0;
+font-size:18px;
+font-weight:bold;
+perspective:100px;
 }
-@keyframes fall{to{transform:translateY(100vh);}}
+.flip span{
+display:block;
+transition:transform 0.5s;
+transform-style:preserve-3d;
+}
+.flip.animate span{
+transform:rotateX(360deg);
+}
 
 /* UCAPAN */
 .ucapan-list{margin-top:20px;max-height:300px;overflow:auto;}
-
 .ucapan-card{
 display:flex;gap:10px;padding:12px;margin-bottom:10px;
 border-radius:15px;background:rgba(255,255,255,0.08);
 animation:fadeUp 0.5s ease;
 }
-
 .avatar{
 width:40px;height:40px;border-radius:50%;
-background:linear-gradient(135deg,#6a11cb,#2575fc);
 display:flex;align-items:center;justify-content:center;
 font-weight:bold;
 }
-
 .ucapan-content{flex:1;text-align:left;}
 .ucapan-nama{font-weight:600;font-size:14px;}
-.ucapan-text{font-size:13px;margin-top:3px;}
+.ucapan-text{font-size:13px;}
 .ucapan-waktu{font-size:11px;opacity:0.6;}
 
-.like-btn{
-margin-top:5px;font-size:12px;cursor:pointer;
-display:inline-flex;gap:5px;opacity:0.8;transition:0.2s;
-}
-
-.like-btn:hover{opacity:1;transform:scale(1.1);}
+.like-btn{cursor:pointer;font-size:12px;transition:0.2s;}
 .like-btn.pop{transform:scale(1.5);}
 
-/* burst */
 .burst{
 position:absolute;width:8px;height:8px;border-radius:50%;
-pointer-events:none;animation:burstAnim 0.6s ease forwards;
+pointer-events:none;animation:burst 0.6s forwards;
 }
-
-@keyframes burstAnim{
-0%{opacity:1;transform:translate(0,0);}
-100%{opacity:0;transform:translate(var(--x),var(--y));}
+@keyframes burst{
+to{opacity:0;transform:translate(var(--x),var(--y));}
 }
 
 @keyframes fadeUp{
@@ -136,240 +126,161 @@ to{opacity:1;}
 
 <!-- HALAMAN 1 -->
 <div class="card" id="halaman1">
-<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
 <h1>Undangan Wisuda</h1>
 <h3>Aan, A.Md.Kom.</h3>
-<p>Masukan nama kamu untuk membuka undangan</p>
-<input type="text" id="namaInput" placeholder="Nama kamu..." autofocus>
-<button onclick="bukaUndangan()">Buka Undangan</button>
+<p>Masukan nama kamu</p>
+<input id="namaInput">
+<button onclick="bukaUndangan()">Buka</button>
 </div>
 
 <!-- HALAMAN 2 -->
 <div class="card" id="halaman2">
-<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
+<h2>Hai <span id="namaTampil"></span></h2>
 
-<p>Assalamu'alaikum Wr. Wb.</p>
-
-<h1>Hai <span id="namaTampil"></span> 👋</h1>
-
-<p>Dengan penuh rasa syukur,<br>saya mengundang kamu hadir di wisuda saya</p>
-
-<div style="margin-top:10px;line-height:1.6;">
-🎓 <b>Wisuda Aan, A.Md.Kom.</b><br>
-📅 Selasa, 5 Mei 2026<br>
+<div>
+📅 5 Mei 2026<br>
 ⏰ 09.00 WIB<br>
-📍 Hotel Horison Ultima Ratu Serang
+📍 Serang
 </div>
-
-<p style="margin-top:15px;font-style:italic;">
-Rayakan momen spesial ini bersamaku!<br>Kehadiranmu sangat berarti.
-</p>
-
-<p style="margin-top:15px;">Wassalamu’alaikum Wr. Wb.</p>
 
 <div class="flip-container">
-<div class="flip-box"><div id="hari">00</div></div>
-<div class="flip-box"><div id="jam">00</div></div>
-<div class="flip-box"><div id="menit">00</div></div>
-<div class="flip-box"><div id="detik">00</div></div>
+<div class="flip-box"><div class="flip" id="hari"><span>00</span></div></div>
+<div class="flip-box"><div class="flip" id="jam"><span>00</span></div></div>
+<div class="flip-box"><div class="flip" id="menit"><span>00</span></div></div>
+<div class="flip-box"><div class="flip" id="detik"><span>00</span></div></div>
 </div>
 
-<a href="https://bit.ly/48hwQVU" target="_blank" class="btn maps">📍 Lihat Lokasi</a>
-<a id="kalenderLink" class="btn maps">📅 Tambah ke Kalender</a>
-
-<!-- UCAPAN DI ATAS WA -->
-<a onclick="bukaHalaman3()" class="btn maps">💌 Kirim Ucapan</a>
-
-<a id="waLink" class="btn wa">💬 Konfirmasi Kehadiran</a>
-
+<a onclick="bukaHalaman3()" class="btn maps">💌 Ucapan</a>
+<a id="waLink" class="btn wa">Konfirmasi</a>
 </div>
 
 <!-- HALAMAN 3 -->
 <div class="card" id="halaman3">
-
-<h2>💌 Ucapan</h2>
-
+<h3>Ucapan</h3>
 <input id="namaUcapan" placeholder="Nama">
-<textarea id="isiUcapan" placeholder="Tulis ucapan..."></textarea>
-
+<textarea id="isiUcapan" placeholder="Ucapan"></textarea>
 <button onclick="kirimUcapan()">Kirim</button>
-
 <div id="listUcapan" class="ucapan-list"></div>
-
-<button onclick="kembali()" class="btn maps">⬅ Kembali</button>
-
+<button onclick="kembali()" class="btn maps">Kembali</button>
 </div>
 
 </div>
 
-<audio id="musik" loop>
-<source src="musik.mp3">
-</audio>
-
-<audio id="notifSound">
-<source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3">
-</audio>
+<audio id="musik" loop src="musik.mp3"></audio>
+<audio id="notifSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
 
 <script>
 const URL="https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec";
 
-/* PARALLAX */
-window.addEventListener("scroll",()=>{
-bg.style.transform="translateY("+window.scrollY*0.3+"px)";
-});
-
-/* URL NAMA */
-window.addEventListener("load",()=>{
-let p=new URLSearchParams(window.location.search);
-if(p.get("to")){
-namaInput.value=decodeURIComponent(p.get("to"));
+/* warna avatar */
+function getWarna(nama){
+let hash=0;
+for(let i=0;i<nama.length;i++){
+hash=nama.charCodeAt(i)+((hash<<5)-hash);
 }
-});
-
-/* KALENDER */
-function buatLinkKalender(nama){
-return "https://calendar.google.com/calendar/render?action=TEMPLATE"
-+"&text=Wisuda Aan"
-+"&dates=20260505T020000Z/20260505T050000Z"
-+"&details=Halo "+nama
-+"&location=Serang";
+return `hsl(${hash%360},70%,55%)`;
 }
 
-/* BUKA */
+/* buka */
 function bukaUndangan(){
-let nama=namaInput.value.trim();
-if(!nama)return alert("Isi nama!");
-
+let nama=namaInput.value;
 namaTampil.innerText=nama;
-
-waLink.href="https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya "+nama+" hadir";
-kalenderLink.href=buatLinkKalender(nama);
-
-fetch(URL,{method:"POST",body:JSON.stringify({nama:nama,waktu:new Date().toLocaleString()})});
-
 halaman1.style.display="none";
 halaman2.style.display="block";
-
 musik.play();
-
-/* confetti */
-for(let i=0;i<30;i++){
-let c=document.createElement("div");
-c.className="confetti";
-c.style.left=Math.random()*100+"%";
-c.style.background="hsl("+Math.random()*360+",100%,50%)";
-c.style.animationDuration=(2+Math.random()*3)+"s";
-document.body.appendChild(c);
-}
 }
 
-/* HALAMAN 3 */
+/* halaman */
 function bukaHalaman3(){
 halaman2.style.display="none";
 halaman3.style.display="block";
 loadUcapan();
 }
-
 function kembali(){
 halaman3.style.display="none";
 halaman2.style.display="block";
 }
 
-/* KIRIM UCAPAN + INSTAN */
+/* kirim */
 function kirimUcapan(){
 let n=namaUcapan.value;
 let u=isiUcapan.value;
-if(!n||!u)return alert("Isi semua!");
-
 let waktu=new Date().toLocaleString();
+
 let div=document.createElement("div");
 div.className="ucapan-card";
-
 div.innerHTML=`
-<div class="avatar">${n[0]}</div>
+<div class="avatar" style="background:${getWarna(n)}">${n[0]}</div>
 <div class="ucapan-content">
 <div class="ucapan-nama">${n}</div>
-<div class="ucapan-text">${u}</div>
+<div>${u}</div>
 <div class="ucapan-waktu">${waktu}</div>
 <div class="like-btn">❤️ 0</div>
-</div>
-`;
-
+</div>`;
 listUcapan.prepend(div);
 
 fetch(URL,{method:"POST",body:JSON.stringify({nama:n,ucapan:u,waktu:waktu})});
-
 isiUcapan.value="";
 }
 
-/* LOAD */
+/* load */
 function loadUcapan(){
 fetch(URL).then(r=>r.json()).then(data=>{
 let html="";
 data.reverse().forEach(r=>{
-let id=r[3];
-let like=r[4]||0;
-
 html+=`
 <div class="ucapan-card">
-<div class="avatar">${r[0][0]}</div>
+<div class="avatar" style="background:${getWarna(r[0])}">${r[0][0]}</div>
 <div class="ucapan-content">
-<div class="ucapan-nama">${r[0]}</div>
-<div class="ucapan-text">${r[1]}</div>
-<div class="ucapan-waktu">${r[2]}</div>
-<div class="like-btn" onclick="likeUcapan(${id},this)">❤️ ${like}</div>
-</div>
-</div>`;
+<div>${r[0]}</div>
+<div>${r[1]}</div>
+<div>${r[2]}</div>
+<div class="like-btn" onclick="likeUcapan(${r[3]},this)">❤️ ${r[4]||0}</div>
+</div></div>`;
 });
 listUcapan.innerHTML=html;
 });
 }
 
-/* LIKE */
+/* like */
 function likeUcapan(id,el){
-
-notifSound.currentTime=0;
 notifSound.play();
-
 el.classList.add("pop");
 setTimeout(()=>el.classList.remove("pop"),200);
 
-let rect=el.getBoundingClientRect();
-
-for(let i=0;i<8;i++){
+for(let i=0;i<6;i++){
 let b=document.createElement("div");
 b.className="burst";
-
-b.style.setProperty("--x",(Math.random()*80-40)+"px");
-b.style.setProperty("--y",(Math.random()*80-40)+"px");
-
-b.style.left=rect.left+"px";
-b.style.top=rect.top+"px";
+b.style.setProperty("--x",(Math.random()*60-30)+"px");
+b.style.setProperty("--y",(Math.random()*60-30)+"px");
+b.style.left=el.getBoundingClientRect().left+"px";
+b.style.top=el.getBoundingClientRect().top+"px";
 b.style.background="hsl("+Math.random()*360+",100%,60%)";
-
 document.body.appendChild(b);
 setTimeout(()=>b.remove(),600);
 }
 
-fetch(URL,{method:"POST",body:JSON.stringify({action:"like",id:id})})
-.then(()=>loadUcapan());
+fetch(URL,{method:"POST",body:JSON.stringify({action:"like",id:id})});
 }
 
-/* REALTIME */
-setInterval(()=>{
-if(halaman3.style.display=="block"){
-loadUcapan();
+/* countdown 3D */
+function updateFlip(id,val){
+let el=document.getElementById(id);
+let span=el.querySelector("span");
+if(span.innerText!=val){
+el.classList.add("animate");
+setTimeout(()=>el.classList.remove("animate"),500);
 }
-},5000);
+span.innerText=String(val).padStart(2,'0');
+}
 
-/* COUNTDOWN */
-let t=new Date("2026-05-05T09:00:00").getTime();
+let target=new Date("2026-05-05T09:00:00").getTime();
 setInterval(()=>{
-let s=t-Date.now();
-hari.innerText=Math.floor(s/86400000);
-jam.innerText=Math.floor(s%86400000/3600000);
-menit.innerText=Math.floor(s%3600000/60000);
-detik.innerText=Math.floor(s%60000/1000);
+let s=target-Date.now();
+updateFlip("hari",Math.floor(s/86400000));
+updateFlip("jam",Math.floor(s%86400000/3600000));
+updateFlip("menit",Math.floor(s%3600000/60000));
+updateFlip("detik",Math.floor(s%60000/1000));
 },1000);
 </script>
 
