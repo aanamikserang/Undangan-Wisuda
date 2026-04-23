@@ -10,58 +10,94 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
-body{background:#000;color:white;overflow-x:hidden;}
+body{
+background:#000;
+color:white;
+overflow-x:hidden;
+}
 
 /* BACKGROUND */
 .bg{
-position:fixed;top:0;left:0;width:100%;height:120%;
-background:url('background.jpg') no-repeat center/cover;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:120%;
+background-image:url('background.jpg');
+background-size:cover;
+background-position:40% center;
 z-index:-2;
-transition:transform 0.1s linear;
 }
 
 .overlay{
-position:fixed;width:100%;height:100%;
-background:rgba(0,0,0,0.3);z-index:-1;
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+z-index:-1;
 }
 
 /* CENTER */
 .wrapper{
-display:flex;justify-content:center;align-items:center;
-min-height:100vh;padding:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
 }
 
 /* CARD */
 .card{
-width:100%;max-width:420px;
-padding:30px 20px;border-radius:25px;
+width:100%;
+max-width:420px;
+padding:30px 20px;
+border-radius:25px;
 text-align:center;
-background:rgba(0,0,0,0.35);
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(12px);
 border:1px solid rgba(255,255,255,0.2);
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
-margin:auto;
+box-shadow:0 0 25px rgba(0,255,255,0.2);
 }
 
-.toga{width:70px;margin-bottom:10px;animation:float 3s infinite;}
-@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.toga{
+width:70px;
+margin-bottom:10px;
+animation:float 3s infinite;
+}
 
-/* INPUT FIX CENTER */
-#namaInput{
-width:80%;max-width:280px;margin:15px auto;
-display:block;text-align:center;
+@keyframes float{
+50%{transform:translateY(-10px);}
+}
+
+/* INPUT */
+input{
+width:100%;
+padding:14px;
+border-radius:30px;
+border:2px solid rgba(255,255,255,0.5);
+background:transparent;
+color:white;
+text-align:center;
+margin-top:15px;
 }
 
 /* BUTTON */
 button,.btn{
-display:block;width:100%;margin-top:15px;
-padding:14px;border-radius:30px;border:none;
-font-weight:600;cursor:pointer;text-decoration:none;
+display:block;
+width:100%;
+margin-top:15px;
+padding:14px;
+border-radius:30px;
+border:none;
+font-weight:600;
+cursor:pointer;
 }
+
 button{background:white;color:black;}
 .maps{background:white;color:black;}
 .wa{background:#25D366;color:white;}
 
-#halaman2,#halaman3{display:none;}
+#halaman2{display:none;}
 
 /* COUNTDOWN 3D */
 .flip-container{display:flex;gap:8px;margin-top:15px;}
@@ -69,57 +105,59 @@ button{background:white;color:black;}
 .label{font-size:11px;}
 .flip{
 background:rgba(255,255,255,0.15);
-border-radius:10px;padding:10px 0;
-perspective:200px;
+border-radius:10px;
+padding:10px 0;
+transform:perspective(200px) rotateX(10deg);
+box-shadow:0 5px 20px rgba(0,0,0,0.6);
+font-weight:bold;
 }
-.flip.animate{animation:flipAnim .6s;}
-@keyframes flipAnim{
-0%{transform:rotateX(0);}
-100%{transform:rotateX(360deg);}
-}
-
-/* CONFETTI */
-.confetti{
-position:fixed;width:8px;height:8px;top:-10px;
-animation:fall linear infinite;z-index:0;
-}
-@keyframes fall{to{transform:translateY(100vh);}}
 
 /* UCAPAN */
-.ucapan-card{
-display:flex;gap:10px;
-padding:12px;margin-top:10px;
+.ucapan-box{
+margin-top:15px;
+max-height:250px;
+overflow:auto;
+padding:10px;
 border-radius:15px;
 background:rgba(255,255,255,0.08);
-animation:fadeUp .5s;
+backdrop-filter:blur(10px);
+box-shadow:0 0 20px rgba(0,255,255,0.2);
 }
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;}
+
+.ucapan-item{
+display:flex;
+gap:10px;
+align-items:flex-start;
+background:rgba(255,255,255,0.1);
+padding:10px;
+border-radius:12px;
+margin-bottom:10px;
+animation:fadeIn .5s;
 }
 
 .avatar{
-width:40px;height:40px;border-radius:50%;
-display:flex;align-items:center;justify-content:center;
-font-weight:bold;color:white;
+width:40px;
+height:40px;
+border-radius:50%;
+box-shadow:0 0 10px cyan;
 }
 
-.ucapan-content{text-align:left;flex:1;}
-
-.like-btn{cursor:pointer;margin-top:5px;font-size:13px;}
-
-.love-fly{
-position:fixed;font-size:20px;
-animation:flyUp 1s forwards;
-}
-@keyframes flyUp{
-to{transform:translateY(-100px);opacity:0;}
+.ucapan-content{
+flex:1;
+font-size:13px;
+text-align:left;
 }
 
-/* MOBILE */
-@media(max-width:600px){
-.card{padding:25px 15px;}
-h1{font-size:20px;}
+.like-btn{
+margin-top:5px;
+font-size:12px;
+cursor:pointer;
+color:#00ffff;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
 }
 </style>
 </head>
@@ -137,9 +175,8 @@ h1{font-size:20px;}
 <h1>Undangan Wisuda</h1>
 <h3>Aan, A.Md.Kom.</h3>
 
-<p>Masukan nama kamu untuk membuka undangan</p>
-
-<input type="text" id="namaInput" placeholder="Nama kamu..." autofocus>
+<p>Masukan nama kamu</p>
+<input type="text" id="namaInput" placeholder="Nama kamu...">
 <button onclick="bukaUndangan()">Buka Undangan</button>
 </div>
 
@@ -147,224 +184,108 @@ h1{font-size:20px;}
 <div class="card" id="halaman2">
 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
 
-<p style="margin-bottom:10px;">Assalamu'alaikum Wr. Wb.</p>
-
 <h1>Hai <span id="namaTampil"></span> 👋</h1>
 
-<p>Dengan penuh rasa syukur,<br>saya mengundang kamu hadir di wisuda saya</p>
+<p>Datang ya ke wisuda saya</p>
 
-<div style="margin-top:10px;">
-🎓 Wisuda Aan<br>
-📅 5 Mei 2026<br>
-⏰ 09.00 WIB<br>
-📍 Hotel Horison Ultima Ratu Serang
-</div>
-
-<p style="margin-top:15px;"><i>Rayakan momen spesial ini bersamaku!</i></p>
-<p style="margin-top:20px;">Wassalamu’alaikum Wr. Wb.</p>
-
+<!-- COUNTDOWN -->
 <div class="flip-container">
-<div class="flip-box"><div class="label">Hari</div><div class="flip" id="hari">00</div></div>
-<div class="flip-box"><div class="label">Jam</div><div class="flip" id="jam">00</div></div>
-<div class="flip-box"><div class="label">Menit</div><div class="flip" id="menit">00</div></div>
-<div class="flip-box"><div class="label">Detik</div><div class="flip" id="detik">00</div></div>
+<div class="flip-box"><div class="label">Hari</div><div class="flip" id="hari">0</div></div>
+<div class="flip-box"><div class="label">Jam</div><div class="flip" id="jam">0</div></div>
+<div class="flip-box"><div class="label">Menit</div><div class="flip" id="menit">0</div></div>
+<div class="flip-box"><div class="label">Detik</div><div class="flip" id="detik">0</div></div>
 </div>
 
-<a href="https://bit.ly/48hwQVU" target="_blank" class="btn maps">📍 Lihat Lokasi</a>
-<a id="kalenderLink" class="btn maps">📅 Tambah ke Kalender</a>
-<a onclick="bukaHalaman3()" class="btn maps">💌 Ucapan</a>
+<!-- UCAPAN -->
+<input type="text" id="ucapanInput" placeholder="Tulis ucapan...">
+<button onclick="kirimUcapan()">💌 Kirim Ucapan</button>
+
+<div id="listUcapan" class="ucapan-box"></div>
+
 <a id="waLink" class="btn wa">💬 Konfirmasi Kehadiran</a>
 
 </div>
-
-<!-- HALAMAN 3 -->
-<div class="card" id="halaman3">
-<h2>💌 Ucapan</h2>
-
-<input id="namaUcapan" placeholder="Nama">
-<textarea id="isiUcapan" placeholder="Ucapan..." style="width:100%;margin-top:10px;"></textarea>
-
-<button onclick="kirimUcapan()">Kirim Ucapan</button>
-
-<div id="listUcapan"></div>
-
-<button onclick="kembali()" class="btn maps">⬅ Kembali</button>
 </div>
-
-</div>
-
-<audio id="musik" loop>
-<source src="musik.mp3">
-</audio>
-
-<audio id="soundLike">
-<source src="https://www.soundjay.com/buttons/sounds/button-16.mp3">
-</audio>
 
 <script>
-const URL="https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec";
+const URL_SCRIPT="https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec";
 
-/* PARALLAX */
-window.addEventListener("scroll",()=>{
-document.getElementById("bg").style.transform="translateY("+window.scrollY*0.3+"px)";
-});
-
-/* URL NAMA */
-window.addEventListener("load",()=>{
-let params=new URLSearchParams(window.location.search);
-let nama=params.get("to");
-if(nama) document.getElementById("namaInput").value=decodeURIComponent(nama);
-});
-
-/* WARNA AVATAR */
-function getWarna(n){
-let h=0;
-for(let i=0;i<n.length;i++){h=n.charCodeAt(i)+((h<<5)-h);}
-return `hsl(${h%360},70%,55%)`;
-}
-
-/* SENSOR */
-function sensor(t){
-return t.replace(/anjing|goblok|tolol/gi,"****");
-}
-
-/* BUKA UNDANGAN */
+/* buka */
 function bukaUndangan(){
-let nama=document.getElementById("namaInput").value.trim();
-if(!nama){alert("Isi nama dulu!");return;}
+let nama=document.getElementById("namaInput").value;
+if(!nama){alert("Isi nama dulu");return;}
 
 document.getElementById("namaTampil").innerText=nama;
-
-document.getElementById("waLink").href=
-"https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya "+nama+" hadir";
-
-document.getElementById("kalenderLink").href=
-"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wisuda Aan";
-
-fetch(URL,{
-method:"POST",
-body:JSON.stringify({nama:nama,waktu:new Date().toLocaleString()})
-});
-
 document.getElementById("halaman1").style.display="none";
 document.getElementById("halaman2").style.display="block";
 
-document.getElementById("musik").play();
-
-/* confetti */
-for(let i=0;i<40;i++){
-let c=document.createElement("div");
-c.className="confetti";
-c.style.left=Math.random()*100+"%";
-c.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)";
-c.style.animationDuration=(2+Math.random()*3)+"s";
-document.body.appendChild(c);
-}
+ambilUcapan();
 }
 
-/* UCAPAN */
-function bukaHalaman3(){
-document.getElementById("halaman2").style.display="none";
-document.getElementById("halaman3").style.display="block";
-loadUcapan();
+/* avatar */
+function avatar(n){
+return "https://api.dicebear.com/7.x/initials/svg?seed="+n;
 }
 
-function kembali(){
-document.getElementById("halaman3").style.display="none";
-document.getElementById("halaman2").style.display="block";
-}
-
+/* kirim */
 function kirimUcapan(){
-let nama=document.getElementById("namaUcapan").value;
-let isi=sensor(document.getElementById("isiUcapan").value);
-let waktu=new Date().toLocaleString();
+let nama=document.getElementById("namaTampil").innerText;
+let ucapan=document.getElementById("ucapanInput").value;
 
-fetch(URL,{
+fetch(URL_SCRIPT,{
 method:"POST",
-body:JSON.stringify({nama:nama,ucapan:isi,waktu:waktu})
+body:JSON.stringify({nama,ucapan,like:0})
+}).then(()=>{
+document.getElementById("ucapanInput").value="";
+ambilUcapan();
 });
-
-document.getElementById("isiUcapan").value="";
-loadUcapan();
 }
 
-function loadUcapan(){
-fetch(URL)
-.then(res=>res.json())
-.then(data=>{
-let html="";
-data.reverse().forEach(r=>{
-html+=`
-<div class="ucapan-card">
-<div class="avatar" style="background:${getWarna(r[0])}">${r[0][0]}</div>
+/* like */
+function like(i){
+fetch(URL_SCRIPT,{
+method:"POST",
+body:JSON.stringify({likeIndex:i})
+}).then(()=>ambilUcapan());
+}
+
+/* ambil */
+function ambilUcapan(){
+fetch(URL_SCRIPT)
+.then(r=>r.json())
+.then(d=>{
+let box=document.getElementById("listUcapan");
+box.innerHTML="";
+
+d.reverse().forEach((x,i)=>{
+box.innerHTML+=`
+<div class="ucapan-item">
+<img src="${avatar(x.nama)}" class="avatar">
 <div class="ucapan-content">
-<b>${r[0]}</b><br>${r[1]}<br><small>${r[2]}</small>
-<div class="like-btn" onclick="like(this,'${r[0]}')">
-❤️ <span>${r[3]||0}</span>
+<b>${x.nama}</b><br>${x.ucapan}
+<div class="like-btn" onclick="like(${d.length-1-i})">
+👍 ${x.like||0}
 </div>
 </div>
 </div>`;
 });
-document.getElementById("listUcapan").innerHTML=html;
 });
 }
 
-/* LIKE */
-function like(el,nama){
-if(localStorage.getItem("like_"+nama)) return alert("Sudah like");
-localStorage.setItem("like_"+nama,true);
+/* realtime */
+setInterval(ambilUcapan,5000);
 
-let span=el.querySelector("span");
-let c=parseInt(span.innerText)+1;
-span.innerText=c;
-
-for(let i=0;i<5;i++){
-let l=document.createElement("div");
-l.className="love-fly";
-l.innerText="❤️";
-l.style.left=Math.random()*100+"%";
-l.style.top="70%";
-document.body.appendChild(l);
-setTimeout(()=>l.remove(),1000);
-}
-
-document.getElementById("soundLike").play();
-
-fetch(URL,{
-method:"POST",
-body:JSON.stringify({like:c,target:nama})
-});
-}
-
-/* COUNTDOWN 3D */
-function updateFlip(id,val){
-let el=document.getElementById(id);
-let v=String(val).padStart(2,'0');
-if(el.innerText!=v){
-el.classList.add("animate");
-setTimeout(()=>el.classList.remove("animate"),600);
-}
-el.innerText=v;
-}
-
+/* countdown */
 let target=new Date("2026-05-05T09:00:00").getTime();
-
 setInterval(()=>{
 let now=new Date().getTime();
 let s=target-now;
 
-updateFlip("hari",Math.floor(s/(1000*60*60*24)));
-updateFlip("jam",Math.floor((s%(1000*60*60*24))/(1000*60*60)));
-updateFlip("menit",Math.floor((s%(1000*60*60))/(1000*60)));
-updateFlip("detik",Math.floor((s%(1000*60))/1000));
+document.getElementById("hari").innerText=Math.floor(s/86400000);
+document.getElementById("jam").innerText=Math.floor((s%86400000)/3600000);
+document.getElementById("menit").innerText=Math.floor((s%3600000)/60000);
+document.getElementById("detik").innerText=Math.floor((s%60000)/1000);
 },1000);
-
-/* REALTIME */
-setInterval(()=>{
-if(document.getElementById("halaman3").style.display=="block"){
-loadUcapan();
-}
-},5000);
 </script>
 
 </body>
