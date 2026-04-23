@@ -115,11 +115,12 @@ button,.btn{
   cursor:pointer;
   text-decoration:none;
   transition:0.2s;
+  text-align: center;
 }
 
 button{background:white;color:black;}
-.maps{background:white;color:black;}
-.wa{background:#25D366;color:white;}
+.btn-maps{background:white;color:black;}
+.btn-calendar{background:white;color:black;}
 .btn-komentar{
   background: #ffb347;
   color: #1e2a3a;
@@ -127,6 +128,7 @@ button{background:white;color:black;}
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 .btn-komentar:hover{ background: #ff9f1c; }
+.btn-wa{background:#25D366;color:white;}
 
 #halaman2{display:none;}
 
@@ -193,22 +195,105 @@ button{background:white;color:black;}
   text-align: center;
 }
 
-/* Guest Book Page */
-.guestbook-page {
-  max-width: 500px;
-  margin: 20px auto;
+/* ========== MODAL GUEST BOOK TRANSPARAN ========== */
+#guestbookModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.6);
-  border-radius: 32px;
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
+  overflow-y: auto;
 }
+
+/* Konten modal dengan background transparan */
+.modal-content {
+  max-width: 550px;
+  margin: auto;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(12px);
+  border-radius: 35px;
+  border: 2px solid rgba(255,215,0,0.4);
+  padding: 25px 20px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  text-align: center; /* SEMUA TEKS DI MODAL MENJADI RATA TENGAH */
+}
+
+.modal-content h2 {
+  color: gold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.modal-content p {
+  font-size: 14px;
+  opacity: 0.9;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+#closeGuestbook {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: rgba(220,53,69,0.9);
+  width: auto;
+  padding: 6px 15px;
+  border-radius: 40px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0;
+}
+
+#closeGuestbook:hover {
+  background: crimson;
+}
+
+/* Input di dalam modal transparan */
+.modal-content input,
+.modal-content textarea {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,215,0,0.5);
+  color: white;
+  text-align: center;
+}
+
+.modal-content textarea {
+  text-align: center;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus {
+  background: rgba(0,0,0,0.5);
+  border-color: gold;
+}
+
+.modal-content input::placeholder,
+.modal-content textarea::placeholder {
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+}
+
 .guest-list {
   max-height: 400px;
   overflow-y: auto;
   margin-top: 20px;
   padding-right: 5px;
+  text-align: left; /* KONTEN UCAPAN TETAP RATA KIRI AGAR RAPI */
 }
+
 .guest-item {
   background: rgba(255,255,240,0.1);
+  backdrop-filter: blur(4px);
   margin: 12px 0;
   padding: 12px 16px;
   border-radius: 24px;
@@ -234,22 +319,6 @@ button{background:white;color:black;}
   margin-top: 6px;
   text-align: right;
 }
-.back-btn {
-  background: rgba(255,255,255,0.2);
-  color: white;
-  margin-top: 20px;
-  border: 1px solid white;
-}
-/* konfirmasi tombol */
-.btn-group {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-.btn-group .btn {
-  flex: 1;
-  margin-top: 0;
-}
 
 /* scrollbar */
 .guest-list::-webkit-scrollbar {
@@ -272,13 +341,25 @@ button{background:white;color:black;}
   z-index:0;
   pointer-events: none;
 }
-@keyframes fall{to{transform:translateY(100vh);}}
+@keyframes fall{to{transform:translateY(100vh));}}
 
-/* loading */
 .loading-spinner {
   text-align: center;
   padding: 20px;
   color: gold;
+}
+
+/* Tombol berurutan dari atas ke bawah */
+.tombol-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.tombol-wrapper .btn,
+.tombol-wrapper button {
+  margin-top: 0;
 }
 
 /* mobile */
@@ -287,6 +368,10 @@ button{background:white;color:black;}
   h1{font-size:20px;}
   .flip-card{ width: 55px; height: 70px; }
   .flip-front, .flip-back{ font-size: 1.6rem; }
+  .modal-content {
+    margin: 10px;
+    padding: 20px 15px;
+  }
 }
 </style>
 </head>
@@ -329,26 +414,25 @@ button{background:white;color:black;}
       <div class="countdown-unit"><div class="flip-card" id="cardDetik"><div class="flip-card-inner"><div class="flip-front">00</div><div class="flip-back">00</div></div></div><div class="label-countdown">Detik</div></div>
     </div>
 
-    <!-- TOMBOL KIRIM UCAPAN & KONFIRMASI KEHADIRAN -->
-    <div class="btn-group">
+    <!-- TOMBOL BERURUTAN DARI ATAS KE BAWAH -->
+    <div class="tombol-wrapper">
+      <a href="https://bit.ly/48hwQVU" target="_blank" class="btn btn-maps">📍 Lihat Lokasi</a>
+      <a id="kalenderLink" class="btn btn-calendar">📅 Tambah ke Kalender</a>
       <button class="btn btn-komentar" id="btnKirimUcapan">💌 Kirim Ucapan</button>
-      <a id="waLink" class="btn wa" style="text-align:center;">💬 Konfirmasi</a>
+      <a id="waLink" class="btn btn-wa">💬 Konfirmasi Kehadiran</a>
     </div>
-    
-    <a href="https://bit.ly/48hwQVU" target="_blank" class="btn maps">📍 Lihat Lokasi</a>
-    <a id="kalenderLink" class="btn maps">📅 Tambah ke Kalender</a>
   </div>
 </div>
 
-<!-- MODAL GUEST BOOK -->
-<div id="guestbookModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); z-index:1000; align-items:center; justify-content:center; padding:20px; overflow-y:auto;">
-  <div style="max-width:550px; margin:auto; background:rgba(0,0,0,0.85); border-radius:35px; border:1px solid gold; padding:20px; position:relative;">
-    <button id="closeGuestbook" style="position:absolute; top:15px; right:20px; background:crimson; width:auto; padding:6px 15px; border-radius:40px;">✖ Tutup</button>
-    <h2 style="color:gold;">✨ Buku Tamu & Ucapan ✨</h2>
-    <p style="font-size:14px;">Tulis kesan, doa, atau ucapan untuk Aan</p>
-    <input type="text" id="guestName" placeholder="Nama Anda" value="" style="margin-top:5px;">
+<!-- MODAL GUEST BOOK DENGAN BACKGROUND TRANSPARAN -->
+<div id="guestbookModal">
+  <div class="modal-content">
+    <button id="closeGuestbook">✖ Tutup</button>
+    <h2>📝 Kirim Ucapan</h2>
+    <p>Tulis kesan, doa, atau ucapan untuk Aan</p>
+    <input type="text" id="guestName" placeholder="Nama Anda" value="">
     <textarea id="guestMessage" rows="3" placeholder="Tulis ucapan / komentar ..."></textarea>
-    <button id="submitUcapanBtn" style="background:#ffb347; color:#222;">✍️ Kirim Ucapan</button>
+    <button id="submitUcapanBtn" style="background:#ffb347; color:#222; margin-top:15px;">✍️ Kirim Ucapan</button>
     
     <div id="guestListContainer" class="guest-list">
       <div class="loading-spinner">⏳ Memuat ucapan...</div>
@@ -362,16 +446,14 @@ button{background:white;color:black;}
 
 <script>
 // ===================== KONFIGURASI FIREBASE =====================
-// GANTI DENGAN KONFIGURASI FIREBASE ANDA
 const firebaseConfig = {
   databaseURL: "https://undangan-wisuda-123-default-rtdb.firebaseio.com/"
-  // Jika perlu tambahkan parameter lain, tapi cukup databaseURL untuk RTDB
 };
 
 // Inisialisasi Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
-const guestbookRef = database.ref('ucapan'); // node 'ucapan' di database
+const guestbookRef = database.ref('ucapan');
 
 // ===================== FUNGSI GUEST BOOK =====================
 
@@ -448,7 +530,6 @@ function showGuestbook() {
   const modal = document.getElementById("guestbookModal");
   if(modal) {
     modal.style.display = "flex";
-    // isi nama tamu dari nama yang membuka undangan
     let currentName = document.getElementById("namaTampil")?.innerText || "";
     if(currentName && currentName !== "") {
       document.getElementById("guestName").value = currentName;
@@ -456,7 +537,6 @@ function showGuestbook() {
       document.getElementById("guestName").value = "";
     }
     document.getElementById("guestMessage").value = "";
-    // Load messages (realtime listener sudah aktif)
   }
 }
 
@@ -471,8 +551,6 @@ function escapeHtml(str) {
 }
 
 // ========== COUNTDOWN 3D FLIP UPDATE ==========
-let lastValues = {hari:null, jam:null, menit:null, detik:null};
-
 function updateCountdown3D() {
   const target = new Date("2026-05-05T09:00:00").getTime();
   const now = new Date().getTime();
@@ -486,7 +564,6 @@ function updateCountdown3D() {
   function updateCard(elementId, newVal) {
     const cardElem = document.getElementById(elementId);
     if(!cardElem) return;
-    const inner = cardElem.querySelector('.flip-card-inner');
     const front = cardElem.querySelector('.flip-front');
     const back = cardElem.querySelector('.flip-back');
     if(!front || !back) return;
@@ -529,7 +606,7 @@ window.addEventListener("load",()=>{
 });
 
 function buatLinkKalender(nama){ 
-  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wisuda%20Aan&dates=20260505T020000Z/20260505T050000Z&details=Halo%20"+encodeURIComponent(nama)+"&location=Serang"; 
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wisuda%20Aan&dates=20260505T020000Z/20260505T050000Z&details=Halo%20"+encodeURIComponent(nama)+"%20saya%20hadir%20di%20wisuda%20Aan&location=Hotel%20Horison%20Ultima%20Ratu%20Serang"; 
 }
 
 function bukaUndangan(){
@@ -539,12 +616,6 @@ function bukaUndangan(){
   let waUrl = `https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya ${nama} hadir di acara wisuda`;
   document.getElementById("waLink").href=waUrl;
   document.getElementById("kalenderLink").href=buatLinkKalender(nama);
-  
-  // Kirim data ke sheets (opsional, tetap dipertahankan)
-  fetch("https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec",{
-    method:"POST",
-    body:JSON.stringify({nama:nama,waktu:new Date().toLocaleString()})
-  }).catch(e=>console.log("Sheets log error (optional):", e));
   
   document.getElementById("halaman1").style.display="none";
   document.getElementById("halaman2").style.display="block";
@@ -579,7 +650,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
   const closeModal = document.getElementById("closeGuestbook");
   if(closeModal) closeModal.addEventListener("click", ()=>{ 
     document.getElementById("guestbookModal").style.display="none";
-    // Matikan listener sementara? Biarkan saja tetap aktif
   });
   
   const submitBtn = document.getElementById("submitUcapanBtn");
@@ -594,12 +664,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
       let success = await saveGuestMessage(name, msg);
       if(success){
         document.getElementById("guestMessage").value = "";
-        // Tidak perlu load ulang karena Firebase realtime otomatis update
       }
     });
   }
   
-  // Tutup modal jika klik di luar (opsional)
+  // Tutup modal jika klik di luar
   document.getElementById("guestbookModal").addEventListener("click", (e) => {
     if(e.target === document.getElementById("guestbookModal")) {
       document.getElementById("guestbookModal").style.display="none";
@@ -607,11 +676,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
   });
 });
 
-// Mulai load messages (realtime listener)
-// Load akan dimulai saat modal pertama kali dibuka, tapi lebih baik mulai sekarang
-// Tapi karena modal belum terbuka, kita load dulu di background
+// Load messages
 setTimeout(() => {
-  // Pre-load, tapi listener akan tetap jalan
   if(document.getElementById("guestListContainer")) {
     loadGuestMessages();
   }
