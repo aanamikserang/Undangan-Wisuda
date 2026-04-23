@@ -8,12 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
 body{
 background:#000;
@@ -21,7 +16,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* ===== BACKGROUND ===== */
+/* background */
 .bg{
 position:fixed;
 top:0;
@@ -31,12 +26,10 @@ height:120%;
 background-image:url('background.jpg');
 background-size:cover;
 background-position:40% center;
-background-repeat:no-repeat;
 z-index:-2;
 transition:transform 0.1s linear;
 }
 
-/* TANPA BLUR */
 .overlay{
 position:fixed;
 width:100%;
@@ -45,7 +38,7 @@ background:rgba(0,0,0,0.3);
 z-index:-1;
 }
 
-/* ===== CENTER LAYOUT ===== */
+/* center */
 .wrapper{
 display:flex;
 justify-content:center;
@@ -54,38 +47,21 @@ min-height:100vh;
 padding:20px;
 }
 
-/* ===== CARD ===== */
 .card{
 width:100%;
 max-width:420px;
 padding:30px 20px;
 border-radius:25px;
 text-align:center;
-
 background:rgba(0,0,0,0.35);
 border:1px solid rgba(255,255,255,0.2);
-
 box-shadow:0 10px 30px rgba(0,0,0,0.5);
-animation:fadeInUp 1s ease;
-position:relative;
-z-index:2;
 margin:auto;
-}
-
-@keyframes fadeInUp{
-from{opacity:0;transform:translateY(40px);}
-to{opacity:1;transform:translateY(0);}
 }
 
 .toga{
 width:70px;
 margin-bottom:10px;
-animation:float 3s infinite;
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
 }
 
 input{
@@ -109,52 +85,29 @@ border:none;
 font-weight:600;
 cursor:pointer;
 text-decoration:none;
-transition:0.3s;
 }
 
 button{background:white;color:black;}
-button:hover{transform:scale(1.05);}
-
 .maps{background:white;color:black;}
 .wa{background:#25D366;color:white;}
 
-.fadeOut{animation:fadeOut 0.5s forwards;}
-.fadeIn{animation:fadeIn 1s forwards;}
+#halaman2{display:none;}
 
-@keyframes fadeOut{
-to{opacity:0;transform:scale(0.8);}
-}
-
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(50px);}
-to{opacity:1;}
-}
-
-/* countdown */
 .flip-container{
 display:flex;
 gap:8px;
 margin-top:15px;
 }
 
-.flip-box{
-flex:1;
-text-align:center;
-}
-
-.label{
-font-size:11px;
-opacity:0.8;
-}
-
+.flip-box{flex:1;text-align:center;}
+.label{font-size:11px;}
 .flip{
 background:rgba(255,255,255,0.15);
 border-radius:10px;
 padding:10px 0;
-font-weight:bold;
 }
 
-/* confetti belakang */
+/* confetti */
 .confetti{
 position:fixed;
 width:8px;
@@ -162,18 +115,9 @@ height:8px;
 top:-10px;
 animation:fall linear infinite;
 z-index:0;
-opacity:0.7;
 }
 
-@keyframes fall{
-to{transform:translateY(100vh);}
-}
-
-/* mobile */
-@media(max-width:600px){
-.card{padding:25px 15px;}
-h1{font-size:20px;}
-}
+@keyframes fall{to{transform:translateY(100vh);}}
 </style>
 </head>
 
@@ -187,33 +131,26 @@ h1{font-size:20px;}
 <!-- HALAMAN 1 -->
 <div class="card" id="halaman1">
 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
-
 <h1>Undangan Wisuda</h1>
 <h3>Aan, A.Md.Kom.</h3>
-
-<p>Masukan nama kamu untuk membuka undangan</p>
-
+<p>Masukan nama kamu</p>
 <input type="text" id="namaInput" placeholder="Nama kamu...">
 <button onclick="bukaUndangan()">Buka Undangan</button>
 </div>
 
 <!-- HALAMAN 2 -->
-<div class="card" id="halaman2" style="display:none;">
-<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
-
+<div class="card" id="halaman2">
 <h1>Hai <span id="namaTampil"></span> 👋</h1>
 
-<p><br>
-Assalaamu’alaikum Wr. Wb.
-  <p><br>
-  Dengan penuh rasa syukur,<br>
+<p>
+Dengan penuh rasa syukur,<br>
 saya mengundang kamu hadir di wisuda saya
 </p>
 
 <div style="margin-top:10px;">
-🎓 <b>Wisuda Aan, A.Md.Kom.</b><br><br>
-📅 Selasa, 5 Mei 2026<br>
-⏰ 09.00 WIB s/d Selesai<br>
+🎓 <b>Wisuda Aan</b><br>
+📅 5 Mei 2026<br>
+⏰ 09.00 WIB<br>
 📍 Hotel Horison Ultima Ratu Serang
 </div>
 
@@ -224,17 +161,12 @@ saya mengundang kamu hadir di wisuda saya
 <div class="flip-box"><div class="label">Detik</div><div class="flip" id="detik">00</div></div>
 </div>
 
-<a href="https://bit.ly/48hwQVU" target="_blank" class="btn maps">📍 Lihat Lokasi</a>
 <a id="kalenderLink" class="btn maps">📅 Tambah ke Kalender</a>
 <a id="waLink" class="btn wa">💬 Konfirmasi Kehadiran</a>
 
 </div>
 
 </div>
-
-<audio id="musik" loop>
-<source src="musik.mp3" type="audio/mp3">
-</audio>
 
 <script>
 /* PARALLAX */
@@ -243,60 +175,45 @@ let scroll=window.scrollY;
 document.getElementById("bg").style.transform="translateY("+scroll*0.3+"px)";
 });
 
-/* kalender */
-function buatLinkKalender(nama){
-return "https://calendar.google.com/calendar/render?action=TEMPLATE"
-+"&text=Wisuda Aan"
-+"&dates=20260505T020000Z/20260505T050000Z"
-+"&details=Halo "+nama
-+"&location=Serang";
+/* ambil nama dari URL */
+function getNamaDariURL(){
+let params=new URLSearchParams(window.location.search);
+return params.get("to");
 }
 
-/* buka undangan */
-function bukaUndangan(){
-let nama=document.getElementById("namaInput").value.trim();
-if(!nama){alert("Isi nama dulu!");return;}
+/* buka otomatis */
+window.onload=function(){
+let namaURL=getNamaDariURL();
+if(namaURL){
+bukaDenganNama(namaURL);
+}
+};
 
+/* fungsi buka */
+function bukaDenganNama(nama){
 document.getElementById("namaTampil").innerText=nama;
 
 document.getElementById("waLink").href=
 "https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya "+nama+" hadir";
 
-document.getElementById("kalenderLink").href=buatLinkKalender(nama);
+document.getElementById("kalenderLink").href=
+"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wisuda Aan&dates=20260505T020000Z/20260505T050000Z";
 
-/* kirim ke Google Sheets */
+document.getElementById("halaman1").style.display="none";
+document.getElementById("halaman2").style.display="block";
+
+/* kirim ke sheets */
 fetch("https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec",{
 method:"POST",
-body:JSON.stringify({
-nama:nama,
-waktu:new Date().toLocaleString()
-})
+body:JSON.stringify({nama:nama,waktu:new Date().toLocaleString()})
 });
-
-/* animasi */
-let h1=document.getElementById("halaman1");
-let h2=document.getElementById("halaman2");
-
-h1.classList.add("fadeOut");
-
-setTimeout(()=>{
-h1.style.display="none";
-h2.style.display="block";
-h2.classList.add("fadeIn");
-},500);
-
-/* musik */
-document.getElementById("musik").play().catch(()=>{});
-
-/* confetti */
-for(let i=0;i<40;i++){
-let c=document.createElement("div");
-c.className="confetti";
-c.style.left=Math.random()*100+"%";
-c.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)";
-c.style.animationDuration=(2+Math.random()*3)+"s";
-document.body.appendChild(c);
 }
+
+/* manual input */
+function bukaUndangan(){
+let nama=document.getElementById("namaInput").value.trim();
+if(!nama){alert("Isi nama dulu!");return;}
+bukaDenganNama(nama);
 }
 
 /* countdown */
