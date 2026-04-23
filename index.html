@@ -9,348 +9,288 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#000;color:white;overflow-x:hidden;}
 
-body{
-background:#000;
-color:white;
-overflow-x:hidden;
-}
-
-/* BACKGROUND */
 .bg{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:120%;
-background-image:url('background.jpg');
-background-size:cover;
-background-position:40% center;
-background-repeat:no-repeat;
+position:fixed;width:100%;height:120%;
+background:url('background.jpg') center/cover;
 z-index:-2;
-transition:transform 0.1s linear;
 }
-
 .overlay{
-position:fixed;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.3);
-z-index:-1;
+position:fixed;width:100%;height:100%;
+background:rgba(0,0,0,0.4);z-index:-1;
 }
 
-/* CENTER */
 .wrapper{
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px;
+display:flex;justify-content:center;align-items:center;
+min-height:100vh;padding:20px;
 }
 
-/* CARD */
 .card{
-width:100%;
-max-width:420px;
-padding:30px 20px;
-border-radius:25px;
-text-align:center;
+width:100%;max-width:420px;padding:25px;
+border-radius:25px;text-align:center;
 background:rgba(0,0,0,0.35);
 border:1px solid rgba(255,255,255,0.2);
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
-margin:auto;
-}
-
-.toga{
-width:70px;
-margin-bottom:10px;
-animation:float 3s infinite;
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
 }
 
 input{
-width:100%;
-padding:14px;
-border-radius:30px;
+width:100%;padding:12px;border-radius:30px;
+background:transparent;color:white;
 border:2px solid rgba(255,255,255,0.5);
-background:transparent;
-color:white;
-text-align:center;
-margin-top:15px;
+margin-top:10px;
 }
 
-button,.btn{
-display:block;
-width:100%;
-margin-top:15px;
-padding:14px;
-border-radius:30px;
-border:none;
-font-weight:600;
-cursor:pointer;
-text-decoration:none;
+button{
+width:100%;padding:12px;border-radius:30px;
+margin-top:10px;border:none;
+background:white;color:black;cursor:pointer;
 }
 
-button{background:white;color:black;}
-.maps{background:white;color:black;}
+.btn{display:block;margin-top:10px;padding:12px;border-radius:30px;}
 .wa{background:#25D366;color:white;}
 
-#halaman2{display:none;}
-
-/* COUNTDOWN 3D */
-.flip-container{display:flex;gap:8px;margin-top:15px;}
-.flip-box{flex:1;text-align:center;}
-.label{font-size:11px;}
-.flip{
-background:rgba(255,255,255,0.15);
-border-radius:10px;
-padding:10px 0;
-transform:perspective(200px) rotateX(10deg);
-box-shadow:0 5px 15px rgba(0,0,0,0.6);
-}
+#halaman2,#halaman3{display:none;}
 
 /* UCAPAN */
 .ucapan-box{
-margin-top:15px;
-max-height:200px;
-overflow:auto;
-text-align:left;
+max-height:300px;overflow:auto;margin-top:10px;text-align:left;
 }
 
 .ucapan-item{
-display:flex;
-gap:10px;
 background:rgba(255,255,255,0.1);
-padding:10px;
-border-radius:10px;
-margin-bottom:8px;
-animation:fadeIn .4s;
+padding:10px;border-radius:10px;margin-bottom:10px;
+position:relative;
 }
 
-.avatar{
-width:35px;
-height:35px;
-border-radius:50%;
-box-shadow:0 0 8px cyan;
+.reply{
+margin-left:15px;margin-top:5px;font-size:12px;
+opacity:0.9;
 }
 
-.ucapan-content{
-flex:1;
-font-size:13px;
+.like-btn, .reply-btn{
+font-size:12px;color:#00ffff;cursor:pointer;margin-top:5px;
 }
 
-.like-btn{
-font-size:12px;
-color:#00ffff;
-cursor:pointer;
-margin-top:5px;
+.top-comment{
+border:1px solid gold;
+box-shadow:0 0 10px gold;
 }
 
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(5px);}
-to{opacity:1;transform:translateY(0);}
+.like-anim{
+position:absolute;
+left:50%;top:50%;
+transform:translate(-50%,-50%);
+font-size:30px;
+animation:pop .6s ease;
+}
+@keyframes pop{
+0%{transform:scale(0);opacity:0;}
+50%{transform:scale(1.5);opacity:1;}
+100%{transform:scale(1);opacity:0;}
 }
 
-/* confetti */
-.confetti{
+.notif{
 position:fixed;
-width:8px;
-height:8px;
-top:-10px;
-animation:fall linear infinite;
-z-index:0;
-}
-@keyframes fall{to{transform:translateY(100vh);}}
-
-/* mobile */
-@media(max-width:600px){
-.card{padding:25px 15px;}
-h1{font-size:20px;}
+top:20px;left:50%;
+transform:translateX(-50%);
+background:#00ffff;color:black;
+padding:10px 20px;border-radius:20px;
+z-index:999;
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg" id="bg"></div>
+<div class="bg"></div>
 <div class="overlay"></div>
 
 <div class="wrapper">
 
 <!-- HALAMAN 1 -->
 <div class="card" id="halaman1">
-<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
-
-<h1>Undangan Wisuda</h1>
-<h3>Aan, A.Md.Kom.</h3>
-
-<p>Masukan nama kamu untuk membuka undangan</p>
-
-<input type="text" id="namaInput" placeholder="Nama kamu..." autofocus>
-<button onclick="bukaUndangan()">Buka Undangan</button>
+<h2>Undangan Wisuda</h2>
+<input id="namaInput" placeholder="Nama kamu">
+<button onclick="bukaUndangan()">Buka</button>
 </div>
 
 <!-- HALAMAN 2 -->
 <div class="card" id="halaman2">
-<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="toga">
-
-<p>Assalamu'alaikum Wr. Wb.</p>
-
-<h1>Hai <span id="namaTampil"></span> 👋</h1>
-
-<p>Dengan penuh rasa syukur,<br>
-saya mengundang kamu hadir di wisuda saya</p>
-
-<div style="margin-top:10px; line-height:1.6;">
-🎓 <b>Wisuda Aan, A.Md.Kom.</b><br>
-📅 Selasa, 5 Mei 2026<br>
-⏰ 09.00 WIB<br>
-📍 Hotel Horison Ultima Ratu Serang
+<h2>Hai <span id="namaTampil"></span></h2>
+<p>Datang ya ke wisuda saya 🎓</p>
+<button onclick="keUcapan()">💌 Kirim Ucapan</button>
+<a id="waLink" class="btn wa">Konfirmasi Kehadiran</a>
 </div>
 
-<div class="flip-container">
-<div class="flip-box"><div class="label">Hari</div><div class="flip" id="hari">00</div></div>
-<div class="flip-box"><div class="label">Jam</div><div class="flip" id="jam">00</div></div>
-<div class="flip-box"><div class="label">Menit</div><div class="flip" id="menit">00</div></div>
-<div class="flip-box"><div class="label">Detik</div><div class="flip" id="detik">00</div></div>
-</div>
+<!-- HALAMAN 3 -->
+<div class="card" id="halaman3">
+<h3>💬 Ucapan & Doa</h3>
 
-<a href="https://bit.ly/48hwQVU" target="_blank" class="btn maps">📍 Lihat Lokasi</a>
-<a id="kalenderLink" class="btn maps">📅 Tambah ke Kalender</a>
-
-<!-- UCAPAN -->
-<input type="text" id="ucapanInput" placeholder="Tulis ucapan kamu...">
-<button onclick="kirimUcapan()">💌 Kirim Ucapan</button>
+<input id="ucapanInput" placeholder="Tulis ucapan...">
+<button onclick="kirimUcapan()">Kirim</button>
 
 <div id="listUcapan" class="ucapan-box"></div>
 
-<a id="waLink" class="btn wa">💬 Konfirmasi Kehadiran</a>
-
+<button onclick="kembali()">⬅ Kembali</button>
 </div>
 
 </div>
 
-<audio id="musik" loop>
-<source src="musik.mp3" type="audio/mp3">
+<audio id="notifSound">
+<source src="https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3">
 </audio>
 
-<script>
-const URL_SCRIPT="https://script.google.com/macros/s/AKfycbxQo7hueuAz5ThGpipGQOr8B2iDQK4fqmPqwacofa0rXzUiBFdebXPlPwMmt6u_cOEWmQ/exec";
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+getFirestore, collection, addDoc, onSnapshot,
+updateDoc, doc, increment
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-/* PARALLAX */
-window.addEventListener("scroll",()=>{
-let scroll=window.scrollY;
-document.getElementById("bg").style.transform="translateY("+scroll*0.3+"px)";
-});
+/* ===== CONFIG (ISI PUNYA KAMU) ===== */
+const firebaseConfig = {
+apiKey: "ISI_APIKEY",
+authDomain: "ISI_DOMAIN",
+projectId: "ISI_PROJECT_ID",
+};
 
-/* buka */
-function bukaUndangan(){
-let nama=document.getElementById("namaInput").value.trim();
-if(!nama){alert("Isi nama dulu!");return;}
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-document.getElementById("namaTampil").innerText=nama;
+let namaUser="";
+let lastCount=0;
 
-document.getElementById("waLink").href=
-"https://api.whatsapp.com/send?phone=6283878272726&text=Halo Aan, saya "+nama+" hadir";
+/* NAVIGASI */
+window.bukaUndangan=()=>{
+namaUser=document.getElementById("namaInput").value;
+if(!namaUser)return alert("Isi nama dulu");
+document.getElementById("namaTampil").innerText=namaUser;
+halaman1.style.display="none";
+halaman2.style.display="block";
+};
 
-document.getElementById("kalenderLink").href=
-"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wisuda Aan";
+window.keUcapan=()=>{
+halaman2.style.display="none";
+halaman3.style.display="block";
+};
 
-fetch(URL_SCRIPT,{
-method:"POST",
-body:JSON.stringify({nama})
-});
+window.kembali=()=>{
+halaman3.style.display="none";
+halaman2.style.display="block";
+};
 
-document.getElementById("halaman1").style.display="none";
-document.getElementById("halaman2").style.display="block";
-
-document.getElementById("musik").play();
-
-/* confetti */
-for(let i=0;i<40;i++){
-let c=document.createElement("div");
-c.className="confetti";
-c.style.left=Math.random()*100+"%";
-c.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)";
-c.style.animationDuration=(2+Math.random()*3)+"s";
-document.body.appendChild(c);
-}
-
-ambilUcapan();
-}
-
-/* avatar */
+/* AVATAR */
 function avatar(n){
 return "https://api.dicebear.com/7.x/initials/svg?seed="+encodeURIComponent(n);
 }
 
-/* kirim ucapan */
-function kirimUcapan(){
-let nama=document.getElementById("namaTampil").innerText;
-let ucapan=document.getElementById("ucapanInput").value.trim();
-if(!ucapan){alert("Isi ucapan dulu!");return;}
+/* KIRIM */
+window.kirimUcapan=async()=>{
+let text=ucapanInput.value;
+if(!text)return;
 
-fetch(URL_SCRIPT,{
-method:"POST",
-body:JSON.stringify({nama,ucapan,like:0})
-}).then(()=>{
-document.getElementById("ucapanInput").value="";
-ambilUcapan();
+await addDoc(collection(db,"ucapan"),{
+nama:namaUser,
+ucapan:text,
+like:0,
+reply:[],
+created:Date.now()
 });
+
+ucapanInput.value="";
+};
+
+/* LIKE */
+window.like=async(id)=>{
+await updateDoc(doc(db,"ucapan",id),{
+like:increment(1)
+});
+};
+
+/* REPLY */
+window.balas=async(id)=>{
+let isi=prompt("Balas:");
+if(!isi)return;
+
+let ref=doc(db,"ucapan",id);
+await updateDoc(ref,{
+reply: [...(window.cache[id]?.reply||[]), {nama:namaUser,text:isi}]
+});
+};
+
+/* DOUBLE TAP */
+window.doubleTapLike=(el,id)=>{
+let now=Date.now();
+let last=el.dataset.last||0;
+
+if(now-last<300){
+like(id);
+let anim=document.createElement("div");
+anim.className="like-anim";
+anim.innerText="❤️";
+el.appendChild(anim);
+setTimeout(()=>anim.remove(),600);
+}
+el.dataset.last=now;
+};
+
+/* NOTIF */
+function notif(){
+let div=document.createElement("div");
+div.className="notif";
+div.innerText="Ucapan baru!";
+document.body.appendChild(div);
+notifSound.play();
+setTimeout(()=>div.remove(),2000);
 }
 
-/* like */
-function likeUcapan(i){
-fetch(URL_SCRIPT,{
-method:"POST",
-body:JSON.stringify({likeIndex:i})
-}).then(()=>ambilUcapan());
-}
+/* REALTIME */
+window.cache={};
 
-/* ambil */
-function ambilUcapan(){
-fetch(URL_SCRIPT)
-.then(res=>res.json())
-.then(data=>{
-let box=document.getElementById("listUcapan");
-box.innerHTML="";
-data.reverse().forEach((x,i)=>{
-box.innerHTML+=`
-<div class="ucapan-item">
-<img src="${avatar(x.nama)}" class="avatar">
-<div class="ucapan-content">
-<b>${x.nama}</b><br>${x.ucapan}
-<div class="like-btn" onclick="likeUcapan(${data.length-1-i})">
-👍 ${x.like||0}
+onSnapshot(collection(db,"ucapan"),(snap)=>{
+let data=[];
+snap.forEach(doc=>{
+let d=doc.data();
+d.id=doc.id;
+data.push(d);
+window.cache[doc.id]=d;
+});
+
+data.sort((a,b)=>b.created-a.created);
+
+let maxLike=Math.max(...data.map(x=>x.like||0));
+
+listUcapan.innerHTML="";
+
+data.forEach(item=>{
+let div=document.createElement("div");
+div.className="ucapan-item "+((item.like===maxLike && maxLike>0)?"top-comment":"");
+
+div.innerHTML=`
+<div onclick="doubleTapLike(this,'${item.id}')">
+<img src="${avatar(item.nama)}" width="30">
+<b>${item.nama}</b><br>${item.ucapan}
 </div>
-</div>
-</div>`;
+
+<div class="like-btn" onclick="like('${item.id}')">👍 ${item.like||0}</div>
+<div class="reply-btn" onclick="balas('${item.id}')">💬 Balas</div>
+`;
+
+(item.reply||[]).forEach(r=>{
+div.innerHTML+=`<div class="reply"><b>${r.nama}:</b> ${r.text}</div>`;
 });
+
+listUcapan.appendChild(div);
 });
+
+/* notif */
+if(data.length>lastCount && lastCount!==0){
+notif();
 }
+lastCount=data.length;
 
-/* realtime */
-setInterval(()=>{
-if(document.getElementById("halaman2").style.display==="block"){
-ambilUcapan();
-}
-},5000);
-
-/* countdown */
-let target=new Date("2026-05-05T09:00:00").getTime();
-setInterval(()=>{
-let now=new Date().getTime();
-let s=target-now;
-
-document.getElementById("hari").innerText=Math.floor(s/86400000);
-document.getElementById("jam").innerText=Math.floor((s%86400000)/3600000);
-document.getElementById("menit").innerText=Math.floor((s%3600000)/60000);
-document.getElementById("detik").innerText=Math.floor((s%60000)/1000);
-},1000);
+});
 </script>
 
 </body>
